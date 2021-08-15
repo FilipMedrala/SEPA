@@ -6,8 +6,7 @@
   <meta name="keywords" content="upload, fuzzing" />
   <meta name="description" content="Page for uploading">
   <meta name="author" content="Group 23" />
- <!-- <link href= "styles/style.css" rel="stylesheet" /> -->
- <!-- <script src="scripts/apply.js"></script> -->
+ <link href= "styles/style.css" rel="stylesheet"
 
 	<title> Upload </title>
 </head>
@@ -28,6 +27,7 @@
   </article>
 
   <section id = "bottom">
+
   <?php
     include ("footer.inc");
   ?>
