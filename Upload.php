@@ -27,7 +27,7 @@
   </form>
   </article>
 
-  <section id = "top">
+  <section id = "bottom">
   <?php
     include ("footer.inc");
   ?>
