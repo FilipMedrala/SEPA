@@ -1,0 +1,50 @@
+<?php
+## Enable IP Address Access Control, default false
+$ip_acl_active = false;
+## Enable IP bypass for debugging, default true
+$ip_acl_debug_bypass = true;
+## Predefined addresses
+$ip_addr_local = "127.0.0.1";
+$ip_addr_swin_v4 = "136.186.0.0";
+$ip_addr_swin_v6 = "2001:388:6080::";
+## Get current client IP
+$ip_addr = $_SERVER["REMOTE_ADDR"];
+## Initialise other vars
+$ip_addr_type = "initialise";
+$ip_addr_islocal = false;
+$ip_addr_isswin = false;
+## Determine whether IPv4 or IPv6
+#if (filter_var($ip_addr, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+#    echo "<p class=\"bg-light\">IPv4 Detected!  Your IPv4 Address is: <strong>$ip_addr</strong></p>";
+#    $ip_addr_type = "IPv4";
+#}
+#elseif (filter_var($ip_addr, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+#    echo "<p class=\"bg-light\">IPv6 Detected!  Your IPv6 Address is: <strong>$ip_addr</strong></p>";
+#    $ip_addr_type = "IPv6";
+#}
+#else {
+#    echo "What kind of IP address are you using!!!";
+#    $ip_addr_type = "no idea";
+#}
+## Determine whether IP address is local
+if (filter_var($ip_addr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE)) {
+    $ip_addr_islocal = false;
+}
+else {
+    $ip_addr_islocal = true;
+}
+## Deny connection if not from local address range
+if ($ip_acl_active === true && $ip_acl_debug_bypass === false && ($ip_addr_islocal === false || $ip_addr_isswin === false)) {
+  header('HTTP/1.1 403 Forbidden');
+  exit();
+}
+## Deny catch-all
+#elseif ($ip_acl_active === true && $ip_acl_debug_bypass === false) {
+#  header('HTTP/1.1 403 Forbidden');
+#  exit();
+#}
+else {
+  ## Do nothing, assume one of the three checks above passed
+  #exit();
+}
+?>
