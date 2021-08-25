@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>Untitled Document</title>
+</head>
+
+<body>
+<div class="container" id="container">
+	<div class="card" id="card">
+		<div class="form-container sign-up-container">
+			<form id="signUpForm" action="#">
+				<h1>Create Account</h1>
+				<br><input id="displayName" type="text" placeholder="Name" />
+				<input id="newEmail" type="email" placeholder="Email" />
+				<input id = "newPassword" type="password" placeholder="Password" />
+				<span class="errorText"></span>
+				<button id="signUp">Sign Up</button>
+				<a href="#" id="signInFlip">Already have an account? Sign in!</a>
+			</form>
+		</div>
+		<div class="form-container sign-in-container">
+			<form id="signInForm" action="#">
+				<h1>Sign in</h1>
+				<input id="email" type="email" placeholder="Email" />
+				<input id="password" type="password" placeholder="Password" />
+				<a href="#" style="margin-bottom: 0px;">Forgot your password?</a>
+				<a href="#"style="margin-top: 7px" id="signUpFlip">Don't have an account? Sign up!</a>
+				<span class="errorText"></span>
+				<button id="signIn">Sign In</button>
+				<button id="test" style="margin: 7px">Test 1!</button>
+				<button id="test2" style="margin: 7px">Test 2!</button>
+			</form>
+		</div>
+	</div>
+	<!-- <div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us please login with your personal info</p>
+				<button class="ghost" id="signIn">Sign In</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Hello, Friend!</h1>
+				<p>Enter your personal details and start journey with us</p>
+				<button class="ghost" id="signUp">Sign Up</button>
+			</div>
+		</div>
+	</div> -->
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+<script src="firebase.js"></script>
+<script src=script.js></script>
+
+</body>
+</html>
