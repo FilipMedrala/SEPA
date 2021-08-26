@@ -68,10 +68,12 @@ else {
 if [ $JOB_DEBUG ] {
   FUZZ_MAIN_PATH="./afl-fuzz -i $JOB_PATH_TEST/$JOB_TNAME/afl_tc_in -o $JOB_PATH_TEST/$JOB_TNAME/afl_out"
   FUZZ_MAIN_PATH_QEMU="./afl-fuzz -q -i $JOB_PATH_TEST/$JOB_TNAME/afl_tc_in -o $JOB_PATH_TEST/$JOB_TNAME/afl_out"
+  FUZZ_APP_PATH="$JOB_PATH_TEST/$JOB_TNAME/$JOB_TNAME"
 }
 else {
   FUZZ_MAIN_PATH="./afl-fuzz -i $JOB_PATH/$JOB_TNAME/afl_tc_in -o $JOB_PATH/$JOB_TNAME/afl_out"
   FUZZ_MAIN_PATH_QEMU="./afl-fuzz -q -i $JOB_PATH/$JOB_TNAME/afl_tc_in -o $JOB_PATH/$JOB_TNAME/afl_out"
+  FUZZ_APP_PATH="$JOB_PATH/$JOB_TNAME/$JOB_TNAME"
 }
 
 #FUZZ_MAIN_PATH="./afl-fuzz -i afl_tc_in -o afl_out"
@@ -101,13 +103,13 @@ else {
 ## Define functions for AFL execution
 ## Works around nastly bash quotation errors
 runaflmaster() {
-  gnome-terminal -- afl-fuzz $FUZZ_MAIN_PATH -M fuzzer1 $JOB_PATH_TEST/$JOB_TNAME/$JOB_TNAME @@
+  gnome-terminal -- afl-fuzz $FUZZ_MAIN_PATH -M fuzzer1 $FUZZ_APP_PATH @@
 }
 runaflslave() {
-  gnome-terminal -- afl-fuzz $FUZZ_MAIN_PATH -S $x $JOB_PATH_TEST/$JOB_TNAME/$JOB_TNAME @@
+  gnome-terminal -- afl-fuzz $FUZZ_MAIN_PATH -S $x $FUZZ_APP_PATH @@
 }
 runaflalt() {
-  gnome-terminal -- afl-fuzz $FUZZ_MAIN_PATH $JOB_PATH_TEST/$JOB_TNAME/$JOB_TNAME @@
+  gnome-terminal -- afl-fuzz $FUZZ_MAIN_PATH $FUZZ_APP_PATH @@
 }
 
 ## Showtime...
