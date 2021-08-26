@@ -66,13 +66,13 @@ else {
 
 ## Location of AFL fuzzer
 if [ $JOB_DEBUG ] {
-  FUZZ_MAIN_PATH="./afl-fuzz -i $JOB_PATH_TEST/$JOB_TNAME/afl_tc_in -o $JOB_PATH_TEST/$JOB_TNAME/afl_out"
-  FUZZ_MAIN_PATH_QEMU="./afl-fuzz -q -i $JOB_PATH_TEST/$JOB_TNAME/afl_tc_in -o $JOB_PATH_TEST/$JOB_TNAME/afl_out"
+  FUZZ_MAIN_PATH="-i $JOB_PATH_TEST/$JOB_TNAME/afl_tc_in -o $JOB_PATH_TEST/$JOB_TNAME/afl_out"
+  FUZZ_MAIN_PATH_QEMU="-q -i $JOB_PATH_TEST/$JOB_TNAME/afl_tc_in -o $JOB_PATH_TEST/$JOB_TNAME/afl_out"
   FUZZ_APP_PATH="$JOB_PATH_TEST/$JOB_TNAME/$JOB_TNAME"
 }
 else {
-  FUZZ_MAIN_PATH="./afl-fuzz -i $JOB_PATH/$JOB_TNAME/afl_tc_in -o $JOB_PATH/$JOB_TNAME/afl_out"
-  FUZZ_MAIN_PATH_QEMU="./afl-fuzz -q -i $JOB_PATH/$JOB_TNAME/afl_tc_in -o $JOB_PATH/$JOB_TNAME/afl_out"
+  FUZZ_MAIN_PATH="-i $JOB_PATH/$JOB_TNAME/afl_tc_in -o $JOB_PATH/$JOB_TNAME/afl_out"
+  FUZZ_MAIN_PATH_QEMU="-q -i $JOB_PATH/$JOB_TNAME/afl_tc_in -o $JOB_PATH/$JOB_TNAME/afl_out"
   FUZZ_APP_PATH="$JOB_PATH/$JOB_TNAME/$JOB_TNAME"
 }
 
