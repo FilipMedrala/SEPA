@@ -38,7 +38,7 @@ install2104() {
 	echo "Done!"
 }
 
-install2104() {
+install2004() {
 	echo "Detected Ubuntu 20.04 LTS!"
 	echo "Updating current packages..."
 	sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y
