@@ -18,14 +18,36 @@ JOB_DEBUG=$4
 JOB_PATH="/opt/$JOB_UID/$JOB_JID"
 
 ## Debugging path (for testing only, not expected to be executed in production)
-JOB_PATH_TEST="~/Documents/$JOB_UID/$JOB_JID"
+JOB_PATH_TEST="$HOME/Documents/$JOB_UID/$JOB_JID"
+
+createTestDir() {
+  checkMT=$(find $JOB_PATH_TEST/$JOB_TNAME/afl_out/fuzzer* -maxdepth 0 -type d | wc -l)
+  if [[ $checkMT != 0 ]]
+  then
+    x=$(find $JOB_PATH_TEST/$JOB_TNAME/afl_out/fuzzer* -maxdepth 0 -type d | wc -l  | xargs -I[] echo fuzzer{1..[]})
+    eval mkdir $JOB_PATH_TEST/$JOB_TNAME/afl_graphs/$x
+  else
+    mkdir -p "$JOB_PATH_TEST/$JOB_TNAME/afl_graphs"
+  fi
+}
+createRealDir() {
+  checkMT=$(find $JOB_PATH/$JOB_TNAME/afl_out/fuzzer* -maxdepth 0 -type d | wc -l)
+  if [[ $checkMT != 0 ]]
+  then
+    x=$(find $JOB_PATH/$JOB_TNAME/afl_out/fuzzer* -maxdepth 0 -type d | wc -l  | xargs -I[] echo fuzzer{1..[]})
+    eval mkdir $JOB_PATH/$JOB_TNAME/afl_graphs/$x
+  else
+    mkdir -p "$JOB_PATH/$JOB_TNAME/afl_graphs"
+  fi
+}
 
 ## Create necessary directories for plotting
 if [ $JOB_DEBUG ]
 then
-  mkdir -p "{$JOB_PATH_TEST/$JOB_TNAME/afl_graphs}"
+  echo "Creating debug path: $JOB_PATH_TEST/$JOB_TNAME/afl_graphs"
+  createTestDir
 else
-  mkdir -p "{$JOB_PATH/$JOB_TNAME/afl_graphs}"
+  createRealDir
 fi
 
 ## Location of AFL state directory
@@ -38,11 +60,10 @@ else
   FUZZ_GRAPH_PATH="$JOB_PATH/$JOB_TNAME/afl_graphs"
 fi
 
-## Define functions for AFL execution
-## Works around nastly bash quotation errors
+## Define function for AFL plotting
 runaflplot() {
   gnome-terminal -- afl-plot $FUZZ_STATE_PATH $FUZZ_GRAPH_PATH
 }
 
 ## Showtime...
-runaflplot()
+runaflplot
