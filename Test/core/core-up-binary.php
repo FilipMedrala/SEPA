@@ -22,6 +22,8 @@ if ($upload_temp_is_ok === 1 && $upload_is_ok === 1) {
 }
 else {
   echo '<p>Binary not uploaded successfully, please check logs!</p>';
+
+
 }
 #echo 'Here is some more debugging info:';
 #print_r($_FILES);
