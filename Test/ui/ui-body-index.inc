@@ -1,5 +1,4 @@
 <?php
-echo '<h2 class="text-center">Welcome To The User Dashboard</h2>';
 echo '<div class="container d-flex justify-content-evenly mt-auto">
 <div>
 <a href="howtouse.php">

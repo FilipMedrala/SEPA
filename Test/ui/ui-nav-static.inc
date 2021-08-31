@@ -1,5 +1,6 @@
 <?php
 echo '
+<header class="">
 <nav class="navbar navbar-expand-lg">
   <div class="container">
     <a class="navbar-brand" href="Navigation"><h2>Fuzzing platform<em>.</em></h2></a>
@@ -13,7 +14,6 @@ echo '
         </li>
   <li class="nav-item">
           <a class="nav-link" href="aboutus.php">Home
-            <span class="sr-only">(current)</span>
           </a>
         </li>
         <li class="nav-item active">
@@ -29,5 +29,7 @@ echo '
     </div>
   </div>
 </nav>
+</header>
+
 ';
 ?>

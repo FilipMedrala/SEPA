@@ -1,4 +1,4 @@
-/* 
+/*
 
 TemplateMo 551 Stand Blog
 
@@ -54,12 +54,12 @@ h1,h2,h3,h4,h5,h6 {
 
 .page-heading {
 	margin: 0px 10px;
-	padding: 120px 0px;
+	padding: 40px 0px;
 	text-align: left;
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-image: url(../images/heading-bg.jpg); 
+	background-image: url(../images/heading-bg.jpg);
 }
 
 .page-heading .text-content h4 {
@@ -246,7 +246,7 @@ header .navbar {
 }
 .navbar .navbar-toggler {
 	border-color: #fff;
-	background-color: #f48840;	
+	background-color: #f48840;
 	height: 46px;
 	outline: none;
 	border-radius: 0px;
@@ -1090,4 +1090,15 @@ footer p a:hover {
 		margin-left: 0px;
 		margin-top: 60px;
 	}
+
+  .vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50px;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+  
 }
