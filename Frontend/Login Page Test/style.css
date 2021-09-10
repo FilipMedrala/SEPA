@@ -90,6 +90,10 @@ input {
 	width: 100%;
 }
 
+input:focus{
+    outline: black 1px;
+}
+
 .container {
 	background-color: #fafafa;
 	border-radius: 10px;
@@ -116,33 +120,36 @@ input {
 	height: 100%;
 }
 
-.sign-in-container {
+#sign-in-container {
 	left: 0;
 	width: 100%;
 	backface-visibility: hidden;
 	background-color: #fafafa;
+	transform-style: inherit;
 }
 
-.sign-up-container {
+#sign-up-container {
 	left: 0;
 	width: 100%;
 	backface-visibility: hidden;
 	transform: rotateY(180deg);
 	background-color: #fafafa;
+	transform-style: inherit;
 }
 
-.container.right-panel-active .sign-up-container {
-	transform: translateX(100%);
-	opacity: 1;
-	z-index: 5;
-	animation: show 0.6s;
+#forgot-password-container {
+	left: 0;
+	width: 100%;
+	backface-visibility: hidden;
+	transform: rotateY(180deg);
+	background-color: #fafafa;
+	transform-style: inherit;
 }
 
 .error {
 	color: #ffffff;
 	background-color: #da6262;
-    border-color: #da5353;
-	border-radius: 25px;
+	border-radius: 10px;
 	padding: 8px 35px 8px 14px;
     margin-bottom: 7px;
 	width: 100%;
