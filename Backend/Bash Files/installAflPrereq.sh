@@ -54,10 +54,12 @@ afl_install() {
 	echo "Installing web environment..."
 	sudo apt-get install apache2 php libapache2-mod-php libapache2-mod-security2
 
-	#Installing the security mod package
+	# Installing the security mod package
 	sudo a2enmod security2
 	sudo /etc/init.d/apache2 force-reload
-
+	# Create temporary directories for the project logs
+	sudo mkdir /var/www/html/SEPP23.com
+	sudo mkdir /var/log/apache2/SEPP23.com
 	echo "Done!"
 }
 
