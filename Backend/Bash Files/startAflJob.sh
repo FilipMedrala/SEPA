@@ -1,12 +1,14 @@
 #!/bin/bash
-#!/bin/bash
 
 ## Write starting timestamp of the started job
 START_TIMESTAMP=$(date +%s)
 
 ## Check if running environment can take advantage of multi-threaded AFL
 CPU_CORE_AVAIL=$(nproc)
-if [[ $CPU_CORE_AVAIL > 1 ]]
+## CPU core limiter to limit the number of corse being used fully
+CPU_CORE_LIM=$6
+
+if [ $CPU_CORE_AVAIL > 1 ]
 then
   ## Execution environment supports AFL multi-thread
   IS_ENV_MULTITHREAD=1
@@ -26,17 +28,19 @@ JOB_JID=$2
 ## Value "2" equals a binary file job
 JOB_TYPE=$3
 
-if [ $JOB_TYPE == 1 ] {
+if [ $JOB_TYPE == 1 ]
+then
   ## If jobtype is srccode, fill in the filename
   JOB_TNAME=$4
-}
-elif [ $JOB_TYPE == 2 ] {
+elif [ $JOB_TYPE == 2 ]
+then
   ## If jobtype is binary, fill in the filename
   JOB_TNAME=$4
-}
-else {
+else
   ## Terminate bootstrapping script and print error
-}
+  ## Temporary error message to show that an error has occured
+  echo "There is an error"
+fi
 
 ## Get supplied execution time length from terminal
 ## Can be either time elapsed or cycles elapsed
@@ -55,26 +59,26 @@ JOB_PATH="/opt/$JOB_UID/$JOB_JID"
 JOB_PATH_TEST="~/Documents/$JOB_UID/$JOB_JID"
 
 ## Create necessary directories
-if [ $JOB_DEBUG ] {
+if [ $JOB_DEBUG ]
+then
   mkdir "{$JOB_PATH_TEST/$JOB_TNAME/afl_tc_in}"
   mkdir "{$JOB_PATH_TEST/$JOB_TNAME/afl_out}"
-}
-else {
+else
   mkdir "{$JOB_PATH/$JOB_TNAME/afl_tc_in}"
   mkdir "{$JOB_PATH/$JOB_TNAME/afl_out}"
-}
+fi
 
 ## Location of AFL fuzzer
-if [ $JOB_DEBUG ] {
+if [ $JOB_DEBUG ]
+then
   FUZZ_MAIN_PATH="-i $JOB_PATH_TEST/$JOB_TNAME/afl_tc_in -o $JOB_PATH_TEST/$JOB_TNAME/afl_out"
   FUZZ_MAIN_PATH_QEMU="-q -i $JOB_PATH_TEST/$JOB_TNAME/afl_tc_in -o $JOB_PATH_TEST/$JOB_TNAME/afl_out"
   FUZZ_APP_PATH="$JOB_PATH_TEST/$JOB_TNAME/$JOB_TNAME"
-}
-else {
+else
   FUZZ_MAIN_PATH="-i $JOB_PATH/$JOB_TNAME/afl_tc_in -o $JOB_PATH/$JOB_TNAME/afl_out"
   FUZZ_MAIN_PATH_QEMU="-q -i $JOB_PATH/$JOB_TNAME/afl_tc_in -o $JOB_PATH/$JOB_TNAME/afl_out"
   FUZZ_APP_PATH="$JOB_PATH/$JOB_TNAME/$JOB_TNAME"
-}
+fi
 
 #FUZZ_MAIN_PATH="./afl-fuzz -i afl_tc_in -o afl_out"
 #FUZZ_MAIN_PATH_QEMU="./afl-fuzz -q -i afl_tc_in -o afl_out"
@@ -114,7 +118,13 @@ runaflalt() {
 
 ## Showtime...
 if [[ $IS_ENV_MULTITHREAD == 1 ]]
-WHILELOOP=$CPU_CORE_AVAIL
+  ## Check if there a CPU limiter variable
+  if [ $CPU_CORE_AVAIL -gt $CPU_CORE_LIM ]
+  then
+   WHILELOOP=$CPU_CORE_LIM
+  else
+   WHILELOOP=$CPU_CORE_AVAIL
+  fi
 WHILELOOP2=1
 then
   runaflmaster
