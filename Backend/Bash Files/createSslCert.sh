@@ -18,6 +18,8 @@ createSelfSigned() {
   ## Certificate variables
   ## Default key algo is elliptic cure P256
   CERT_ALGO="secp256r1"
+  ## Default hash is sha256
+  CERT_HASH="-sha256"
   ## Default duration is 1 year
   CERT_DURATION="-days 365"
   ## Default subject is:
@@ -26,5 +28,5 @@ createSelfSigned() {
   ## Generate private key
   openssl ecparam -genkey -name $CERT_ALGO -noout -out $CERT_OUT_DIR/aflfuzz-web-key.pem
   ## Cenerate x509 certificate
-  openssl req -x509 -key aflfuzz-web-key.pem -out $CERT_OUT_DIR/aflfuzz-web-cert.pem $CERT_DURATION $CERT_SUBJECT
+  openssl req -x509 -key aflfuzz-web-key.pem -out $CERT_OUT_DIR/aflfuzz-web-cert.pem $CERT_HASH $CERT_DURATION $CERT_SUBJECT
 }
