@@ -3,6 +3,10 @@
 CERT_TYPE=$1
 CERT_OUT_DIR=$2
 
+## Check if OpenSSL is installed & command is available
+hash openssl 2>/dev/null || { echo >&2 "OpenSSL is not installed.  Aborting."; exit 1; }
+
+## Decide SSL certificate "type" based on user input
 if [ $CERT_TYPE == "self" ]
 then
   createSelfSigned
@@ -14,6 +18,7 @@ then
 else
   echo "ERROR: Certificate type variable is unrecognised!"
 
+# Create a self-signed SSL certificate with sane defaults
 createSelfSigned() {
   ## Certificate variables
   ## Default key algo is elliptic cure P256
