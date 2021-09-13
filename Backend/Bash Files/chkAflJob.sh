@@ -5,6 +5,9 @@ JOB_DIR_ACTIVE=$1
 ## Specify summary or detail mode
 JOB_DETAILS=$2
 
+## Check if afl-whatsup is installed
+hash afl-whatsup 2>/dev/null || { echo >&2 "afl-whatsup is not installed.  Aborting."; exit 1; }
+
 ## Check if paths are empty
 if [ -z "$JOB_DIR_ACTIVE" || -z "$JOB_DETAILS" ]
 then
