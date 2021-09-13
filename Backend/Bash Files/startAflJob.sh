@@ -107,36 +107,39 @@ fi
 ## Define functions for AFL execution
 ## Works around nastly bash quotation errors
 runaflmaster() {
-  gnome-terminal -- afl-fuzz $FUZZ_MAIN_PATH -M fuzzer1 $FUZZ_APP_PATH @@
+  screen -dmS $SCR_NAME afl-fuzz $FUZZ_MAIN_PATH -M fuzzer1 $FUZZ_APP_PATH @@
 }
 runaflslave() {
-  gnome-terminal -- afl-fuzz $FUZZ_MAIN_PATH -S $x $FUZZ_APP_PATH @@
+  screen -dmS $SCR_NAME afl-fuzz $FUZZ_MAIN_PATH -S $x $FUZZ_APP_PATH @@
 }
 runaflalt() {
-  gnome-terminal -- afl-fuzz $FUZZ_MAIN_PATH $FUZZ_APP_PATH @@
+  screen -dmS $SCR_NAME afl-fuzz $FUZZ_MAIN_PATH $FUZZ_APP_PATH @@
 }
 
 ## Showtime...
 if [[ $IS_ENV_MULTITHREAD == 1 ]]
   ## Check if there a CPU limiter variable
   if [ $CPU_CORE_AVAIL -gt $CPU_CORE_LIM ]
-  then
-   WHILELOOP=$CPU_CORE_LIM
-  else
-   WHILELOOP=$CPU_CORE_AVAIL
+    then
+      WHILELOOP=$CPU_CORE_LIM
+    else
+      WHILELOOP=$CPU_CORE_AVAIL
   fi
-WHILELOOP2=1
-then
-  runaflmaster
-  while [ $WHILELOOP != 1 ]
-  do
-    WHILELOOP2=$(( $WHILELOOP2 + 1 ))
-    x="fuzzer$WHILELOOP2"
-    runaflslave
-    echo "Process Spawning: $WHILELOOP2"
-    WHILELOOP=$(( $WHILELOOP - 1 ))
-    echo "Counter Number: $WHILELOOP"
-  done
-else
-  runaflalt
+  WHILELOOP2=1
+  then
+    SCR_NAME="$UID-$JID-MT-fuzzer1"
+    runaflmaster
+    while [ $WHILELOOP != 1 ]
+    do
+      WHILELOOP2=$(( $WHILELOOP2 + 1 ))
+      x="fuzzer$WHILELOOP2"
+      SCR_NAME="$UID-$JID-MT-$x"
+      runaflslave
+      echo "Process Spawning: $WHILELOOP2"
+      WHILELOOP=$(( $WHILELOOP - 1 ))
+      echo "Counter Number: $WHILELOOP"
+    done
+  else
+    SCR_NAME="$UID-$JID-ST-fuzzer"
+    runaflalt
 fi
