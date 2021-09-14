@@ -61,12 +61,14 @@ JOB_PATH_TEST="/home/sepadmin/Documents/$JOB_UID/$JOB_JID"
 ## Create necessary directories
 if [[ $JOB_DEBUG ]]
 then
-  echo "$JOB_PATH_TEST/$JOB_TNAME/afl_tc_in"
-  mkdir -p "$JOB_PATH_TEST/$JOB_TNAME/afl_tc_in"
-  mkdir -p "$JOB_PATH_TEST/$JOB_TNAME/afl_out"
+  #echo $JOB_PATH_TEST/$JOB_TNAME/afl_tc_in
+  #mkdir -p "$JOB_PATH_TEST/$JOB_TNAME/afl_tc_in"
+  #mkdir -p "$JOB_PATH_TEST/$JOB_TNAME/afl_out"
+  mkdir -p "$JOB_PATH_TEST/$JOB_TNAME/{afl_tc_in,afl_out}"
 else
-  mkdir -p "$JOB_PATH/$JOB_TNAME/afl_tc_in"
-  mkdir -p "$JOB_PATH/$JOB_TNAME/afl_out"
+  #mkdir -p $JOB_PATH/$JOB_TNAME/afl_tc_in
+  #mkdir -p $JOB_PATH/$JOB_TNAME/afl_out
+  mkdir -p "$JOB_PATH/$JOB_TNAME/{afl_tc_in,afl_out}"
 fi
 
 ## Location of AFL fuzzer
@@ -109,7 +111,7 @@ fi
 ## Works around nastly bash quotation errors
 runaflmaster() {
   SCR_NAME="$JOB_UID-$JOB_JID-MT-fuzzer1"
-  echo "screen -dmS $SCR_NAME afl-fuzz $FUZZ_MAIN_PATH -M fuzzer1 $FUZZ_APP_PATH @@"
+  #echo "screen -dmS $SCR_NAME afl-fuzz $FUZZ_MAIN_PATH -M fuzzer1 $FUZZ_APP_PATH @@"
   screen -dmS $SCR_NAME afl-fuzz $FUZZ_MAIN_PATH -M fuzzer1 $FUZZ_APP_PATH @@
 }
 runaflslave() {
@@ -137,7 +139,7 @@ then
   do
     echo "Counter Number: $LOOP_CTR"
     LOOP_CTR=$(( $LOOP_CTR + 1 ))
-    x="fuzzer$LOOP_COUNTER"
+    x="fuzzer$LOOP_CTR"
     SCR_NAME="$JOB_UID-$JOB_JID-MT-$x"
     runaflslave
     echo "Process Spawning: $SCR_NAME"
