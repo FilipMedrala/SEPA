@@ -36,6 +36,10 @@ elif [[ $JOB_TYPE == 2 ]]
 then
   ## If jobtype is binary, fill in the filename
   JOB_TNAME=$4
+elif [[ $JOB_TYPE == 3 ]]
+then
+  ## If jobtype is binary, fill in the filename
+  JOB_TNAME=$4
 else
   ## Terminate bootstrapping script and print error
   ## Temporary error message to show that an error has occured
@@ -108,19 +112,42 @@ fi
 ##
 
 ## Define functions for AFL execution
-## Works around nastly bash quotation errors
-runaflmaster() {
+## Job type 1 (source code)
+runAflMasterJType1() {
   SCR_NAME="$JOB_UID-$JOB_JID-MT-fuzzer1"
-  #echo "screen -dmS $SCR_NAME afl-fuzz $FUZZ_MAIN_PATH -M fuzzer1 $FUZZ_APP_PATH @@"
   screen -dmS $SCR_NAME afl-fuzz $FUZZ_MAIN_PATH -M fuzzer1 $FUZZ_APP_PATH @@
 }
-runaflslave() {
+runAflSlaveJType1() {
   screen -dmS $SCR_NAME afl-fuzz $FUZZ_MAIN_PATH -S $x $FUZZ_APP_PATH @@
 }
-runaflalt() {
+runAflAltJType1() {
   SCR_NAME="$JOB_UID-$JOB_JID-ST-fuzzer"
   screen -dmS $SCR_NAME afl-fuzz $FUZZ_MAIN_PATH $FUZZ_APP_PATH @@
 }
+## Job type 2 (binary) QEMU
+runAflMasterJType2() {
+  SCR_NAME="$JOB_UID-$JOB_JID-MT-fuzzer1"
+  screen -dmS $SCR_NAME afl-fuzz -Q $FUZZ_MAIN_PATH -M fuzzer1 $FUZZ_APP_PATH @@
+}
+runAflSlaveJType2() {
+  screen -dmS $SCR_NAME afl-fuzz -Q $FUZZ_MAIN_PATH -S $x $FUZZ_APP_PATH @@
+}
+runAflAltJType2() {
+  SCR_NAME="$JOB_UID-$JOB_JID-ST-fuzzer"
+  screen -dmS $SCR_NAME afl-fuzz -Q $FUZZ_MAIN_PATH $FUZZ_APP_PATH @@
+}
+## Job type 2 (binary) FRIDA
+#runAflMasterJType3() {
+#  SCR_NAME="$JOB_UID-$JOB_JID-MT-fuzzer1"
+#  screen -dmS $SCR_NAME afl-fuzz -O $FUZZ_MAIN_PATH -M fuzzer1 $FUZZ_APP_PATH @@
+#}
+#runAflSlaveJType3() {
+#  screen -dmS $SCR_NAME afl-fuzz -O $FUZZ_MAIN_PATH -S $x $FUZZ_APP_PATH @@
+#}
+#runAflAltJType3() {
+#  SCR_NAME="$JOB_UID-$JOB_JID-ST-fuzzer"
+#  screen -dmS $SCR_NAME afl-fuzz -O $FUZZ_MAIN_PATH $FUZZ_APP_PATH @@
+#}
 
 ## Showtime...
 if [[ $IS_ENV_MULTITHREAD == 1 ]]
@@ -132,19 +159,42 @@ then
   else
     LOOP_CORES_USED=$CPU_CORE_AVAIL
   fi
-  #echo $WHILELOOP
   LOOP_CTR=1
-  runaflmaster
+  case $JOB_TYPE in
+    1 )
+      runAflMasterJType1
+      ;;
+    2 )
+      runAflMasterJType2
+      ;;
+  esac
+  #runaflmaster
   while [ $LOOP_CORES_USED != 1 ]
   do
     echo "Counter Number: $LOOP_CTR"
     LOOP_CTR=$(( $LOOP_CTR + 1 ))
     x="fuzzer$LOOP_CTR"
     SCR_NAME="$JOB_UID-$JOB_JID-MT-$x"
-    runaflslave
+    case $JOB_TYPE in
+      1 )
+        runAflSlaveJType1
+        ;;
+      2 )
+        runAflSlaveJType2
+        ;;
+    esac
+    #runaflslave
     echo "Process Spawning: $SCR_NAME"
     LOOP_CORES_USED=$(( $LOOP_CORES_USED - 1 ))
     done
 else
-  runaflalt
+  case $JOB_TYPE in
+    1 )
+      runAflAltJType1
+      ;;
+    2 )
+      runAflAltJType2
+      ;;
+  esac
+  #runaflalt
 fi
