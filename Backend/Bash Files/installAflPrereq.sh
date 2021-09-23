@@ -10,7 +10,7 @@ install2104() {
 	echo "Installing prerequitsites for AFL/AFL++..."
 	sudo apt-get install -y build-essential python3-dev automake git flex bison libglib2.0-dev libpixman-1-dev python3-setuptools
 	sudo apt-get install -y lld-12 llvm-12 llvm-12-dev clang-12
-	sudo apt-get install -y gcc-10-plugin-dev libstdc++-10-dev
+	sudo apt-get install -y gcc-11-plugin-dev libstdc++-10-dev
 
 	# Run the AFL++ install function
 	afl_install
@@ -23,8 +23,8 @@ install2004() {
 
 	echo "Installing prerequitsites for AFL/AFL++..."
 	sudo apt-get install -y build-essential python3-dev automake git flex bison libglib2.0-dev libpixman-1-dev python3-setuptools
-	sudo apt-get install -y lld-10 llvm-10 llvm-10-dev clang-10
-	sudo apt-get install -y gcc-9-plugin-dev libstdc++-9-dev
+	sudo apt-get install -y lld-11 llvm-11 llvm-11-dev clang-11
+	sudo apt-get install -y gcc-10-plugin-dev libstdc++-10-dev
 
 	# Run the AFL++ install function
 	afl_install

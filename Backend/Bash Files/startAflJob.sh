@@ -1,5 +1,14 @@
 #!/bin/bash
 
+## Exit codes
+# 0 = Successful
+# 1 =
+# 2 = Unexpected job type parameter
+# 3 = Job source code compilation error
+# 4 = AFL++ master process launch failure
+# 5 = AFL++ slave process launch failure
+# 6 = AFL++ standalone process launch failure
+
 ## Write starting timestamp of the started job
 START_TIMESTAMP=$(date +%s)
 
@@ -24,8 +33,8 @@ JOB_UID=$1
 JOB_JID=$2
 
 ## Can be either sourcecode or binary
-## Value "1" equals a source code job
-## Value "2" equals a binary file job
+## Value "1" equals a source code job in compilation mode
+## Value "2" equals a binary file job in QEMU mode
 JOB_TYPE=$3
 
 if [[ $JOB_TYPE == 1 ]]
@@ -44,6 +53,7 @@ else
   ## Terminate bootstrapping script and print error
   ## Temporary error message to show that an error has occured
   echo "There is an error"
+  exit 2
 fi
 
 ## Get supplied execution time length from terminal
@@ -54,6 +64,10 @@ fi
 ## Debug variable
 #JOB_DEBUG=$7
 JOB_DEBUG=$5
+
+JOB_OPT_PARAMS=$6
+
+JOB_COMPILER=$7
 
 ## Enumerate job storage path
 ## Typically this will be the format of mainstoragedirectory/userid/jobid
@@ -68,22 +82,24 @@ then
   #echo $JOB_PATH_TEST/$JOB_TNAME/afl_tc_in
   #mkdir -p "$JOB_PATH_TEST/$JOB_TNAME/afl_tc_in"
   #mkdir -p "$JOB_PATH_TEST/$JOB_TNAME/afl_out"
-  mkdir -p "$JOB_PATH_TEST/$JOB_TNAME/{afl_tc_in,afl_out}"
+  mkdir_dir="$JOB_PATH_TEST/$JOB_TNAME/{afl_in,afl_out}"
+  mkdir -p $mkdir_dir
 else
   #mkdir -p $JOB_PATH/$JOB_TNAME/afl_tc_in
   #mkdir -p $JOB_PATH/$JOB_TNAME/afl_out
-  mkdir -p "$JOB_PATH/$JOB_TNAME/{afl_tc_in,afl_out}"
+  mkdir_dir="$JOB_PATH/$JOB_TNAME/{afl_in,afl_out}"
+  mkdir -p $mkdir_dir
 fi
 
 ## Location of AFL fuzzer
 if [[ $JOB_DEBUG ]]
 then
-  FUZZ_MAIN_PATH="-i $JOB_PATH_TEST/$JOB_TNAME/afl_tc_in -o $JOB_PATH_TEST/$JOB_TNAME/afl_out"
-  FUZZ_MAIN_PATH_QEMU="-q -i $JOB_PATH_TEST/$JOB_TNAME/afl_tc_in -o $JOB_PATH_TEST/$JOB_TNAME/afl_out"
+  FUZZ_MAIN_PATH="-i $JOB_PATH_TEST/$JOB_TNAME/afl_in -o $JOB_PATH_TEST/$JOB_TNAME/afl_out"
+  FUZZ_MAIN_PATH_QEMU="-q -i $JOB_PATH_TEST/$JOB_TNAME/afl_in -o $JOB_PATH_TEST/$JOB_TNAME/afl_out"
   FUZZ_APP_PATH="$JOB_PATH_TEST/$JOB_TNAME/$JOB_TNAME"
 else
-  FUZZ_MAIN_PATH="-i $JOB_PATH/$JOB_TNAME/afl_tc_in -o $JOB_PATH/$JOB_TNAME/afl_out"
-  FUZZ_MAIN_PATH_QEMU="-q -i $JOB_PATH/$JOB_TNAME/afl_tc_in -o $JOB_PATH/$JOB_TNAME/afl_out"
+  FUZZ_MAIN_PATH="-i $JOB_PATH/$JOB_TNAME/afl_in -o $JOB_PATH/$JOB_TNAME/afl_out"
+  FUZZ_MAIN_PATH_QEMU="-q -i $JOB_PATH/$JOB_TNAME/afl_in -o $JOB_PATH/$JOB_TNAME/afl_out"
   FUZZ_APP_PATH="$JOB_PATH/$JOB_TNAME/$JOB_TNAME"
 fi
 
@@ -111,30 +127,56 @@ fi
 #FUZZ_MON_PATH_FULL="${FUZZ_MON_PATH} ${JOB_PATH_TEST}"
 ##
 
+runAflProcessFailCode() {
+if [[ $LAUNCH_STATUS -ne 0 ]]
+  then
+    echo "There was a error starting the AFL fuzzer via screen!"
+    exit $LAUNCH_FAIL_CODE
+fi
+}
+
 ## Define functions for AFL execution
 ## Job type 1 (source code)
 runAflMasterJType1() {
   SCR_NAME="$JOB_UID-$JOB_JID-MT-fuzzer1"
   screen -dmS $SCR_NAME afl-fuzz $FUZZ_MAIN_PATH -M fuzzer1 $FUZZ_APP_PATH @@
+  LAUNCH_STATUS=$?
+  LAUNCH_FAIL_CODE=4
+  runAflProcessFailCode
 }
 runAflSlaveJType1() {
   screen -dmS $SCR_NAME afl-fuzz $FUZZ_MAIN_PATH -S $x $FUZZ_APP_PATH @@
+  LAUNCH_STATUS=$?
+  LAUNCH_FAIL_CODE=5
+  runAflProcessFailCode
 }
 runAflAltJType1() {
   SCR_NAME="$JOB_UID-$JOB_JID-ST-fuzzer"
   screen -dmS $SCR_NAME afl-fuzz $FUZZ_MAIN_PATH $FUZZ_APP_PATH @@
+  LAUNCH_STATUS=$?
+  LAUNCH_FAIL_CODE=6
+  runAflProcessFailCode
 }
 ## Job type 2 (binary) QEMU
 runAflMasterJType2() {
   SCR_NAME="$JOB_UID-$JOB_JID-MT-fuzzer1"
   screen -dmS $SCR_NAME afl-fuzz -Q $FUZZ_MAIN_PATH -M fuzzer1 $FUZZ_APP_PATH @@
+  LAUNCH_STATUS=$?
+  LAUNCH_FAIL_CODE=4
+  runAflProcessFailCode
 }
 runAflSlaveJType2() {
   screen -dmS $SCR_NAME afl-fuzz -Q $FUZZ_MAIN_PATH -S $x $FUZZ_APP_PATH @@
+  LAUNCH_STATUS=$?
+  LAUNCH_FAIL_CODE=5
+  runAflProcessFailCode
 }
 runAflAltJType2() {
   SCR_NAME="$JOB_UID-$JOB_JID-ST-fuzzer"
   screen -dmS $SCR_NAME afl-fuzz -Q $FUZZ_MAIN_PATH $FUZZ_APP_PATH @@
+  LAUNCH_STATUS=$?
+  LAUNCH_FAIL_CODE=6
+  runAflProcessFailCode
 }
 ## Job type 2 (binary) FRIDA
 #runAflMasterJType3() {
@@ -148,6 +190,25 @@ runAflAltJType2() {
 #  SCR_NAME="$JOB_UID-$JOB_JID-ST-fuzzer"
 #  screen -dmS $SCR_NAME afl-fuzz -O $FUZZ_MAIN_PATH $FUZZ_APP_PATH @@
 #}
+
+runAflCompileJType1() {
+  /bin/bash compileAflJob.sh $JOB_UID $JOB_JID $JOB_TNAME $JOB_COMPILER
+  COMPILE_STATUS=$?
+  if [[ $COMPILE_STATUS -ne 0 ]]
+  then
+    echo "There was a error compiling the source-code of your application necessary for the AFL fuzzer!"
+    exit 3
+  fi
+}
+
+## Source code preparation for Job Type 1
+if [[ $JOB_TYPE == 1 ]]
+then
+  ## Run the compilation script
+  runAflCompileJType1
+else
+  ## do nothing (noop)
+fi
 
 ## Showtime...
 if [[ $IS_ENV_MULTITHREAD == 1 ]]
@@ -198,3 +259,5 @@ else
   esac
   #runaflalt
 fi
+
+exit 0
