@@ -19,8 +19,12 @@
     </div>
   </section>
 </div>
+<body>
 
 <?php include 'ui/ui-body-index.inc';?>
+
+
+
 <?php include 'ui/ui-footer.inc';?>
 </body>
 </html>

@@ -33,6 +33,7 @@ h1,h2,h3,h4,h5,h6 {
 	margin: 0px;
 }
 
+
 .main-button a {
 	display: inline-block;
 	background-color: #f48840;
@@ -1099,6 +1100,50 @@ footer p a:hover {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+table, th, td {
+border: 1px solid black;
+}
 
-  
+#myProgress {
+  width: 50%;
+  background-color: #ddd;
+}
+
+#myBar {
+  width: 10px;
+  height: 30px;
+  background-color: #04AA6D;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+
+.button {
+   width: 50%;
+ }
+
+ .button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  position: absolute;
+  opacity: 10;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
 }
