@@ -13,7 +13,7 @@ install2104() {
 	sudo apt-get install -y gcc-10-plugin-dev libstdc++-10-dev
 
 	# Run the AFL++ install function
-	afl_install()
+	afl_install
 }
 
 install2004() {
@@ -25,9 +25,9 @@ install2004() {
 	sudo apt-get install -y build-essential python3-dev automake git flex bison libglib2.0-dev libpixman-1-dev python3-setuptools
 	sudo apt-get install -y lld-10 llvm-10 llvm-10-dev clang-10
 	sudo apt-get install -y gcc-9-plugin-dev libstdc++-9-dev
-	
+
 	# Run the AFL++ install function
-	afl_install()
+	afl_install
 }
 
 afl_install() {
@@ -65,10 +65,10 @@ afl_install() {
 
 if [[ $(lsb_release -rs) == "21.04" ]]
 then
-	install2104()
-elif [[ $(lsb_release -rs) == "20.04" ]]
+	install2104
+elif [[ $(lsb_release -rs) == "20.04*" ]]
 then
-	install2004()
+	install2004
 else
 	echo "Script is only compatibile with Ubuntu 20.04 LTS or 21.04"
 fi
