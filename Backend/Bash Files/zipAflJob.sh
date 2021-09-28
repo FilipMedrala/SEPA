@@ -9,6 +9,7 @@
 ZIP_SRC_DIR_TMP=$1
 ZIP_SRC_DIR="$ZIP_SRC_DIR_TMP/*"
 ZIP_ARC_NAME=$2
+ZIP_ARC_DIR="$ZIP_SRC_DIR_TMP/$ZIP_ARC_NAME"
 
 ## Compression level (e.g. "compatible", "modern" or "experimental")
 COMPRESSION_MODE=$3
@@ -18,7 +19,7 @@ useCompatibleCompression() {
   ## Use quiet mode
   ## Use DEFLATE algorithm
   ## Add files recusively
-  zip -q -Z deflate -j $ZIP_ARC_NAME $ZIP_SRC_DIR
+  zip -q -Z deflate -r $ZIP_ARC_DIR $ZIP_SRC_DIR
 }
 
 ## 7z LZMA Compression with reasonable defaults
@@ -26,7 +27,7 @@ useCompatibleCompression() {
 useModernCompression() {
   ## Use normal lzma compression
   ## Add files recusively (handled in path)
-  7z -a -t7z -mx=5 $ZIP_ARC_NAME $ZIP_SRC_DIR
+  7z a -t7z -mx=5 $ZIP_ARC_DIR $ZIP_SRC_DIR
 }
 
 ## ZStandard Compression
@@ -36,20 +37,36 @@ useExperimentalCompression() {
   ## Use quiet mode
   ## Use ZSTD_LAZY2 Level 9 algorithm
   ## Add files recusively (wildcard character not needed)
-  echo "full compression command: tar -I '--zstd -z -9' -cf $ZIP_ARC_NAME.tar.zst $ZIP_SRC_DIR_TMP/"
-  tar -I '--zstd -q -z -9' -cf $ZIP_ARC_NAME.tar.zst $ZIP_SRC_DIR_TMP/
+  tar -I 'zstd -q -z -9' -cf $ZIP_ARC_DIR.tar.zst -C $ZIP_SRC_DIR_TMP/ .
 }
 
-if [ $COMPRESSION_MODE == "compatible" ] {
-  useCompatibleCompression
-}
-elif [ $COMPRESSION_MODE == "modern" ] {
-  useModernCompression
-}
-elif [ $COMPRESSION_MODE == "experimental" ] {
-  echo 'Experimental compresion mode is disabled. Please select either the "compatible" or "modern" options.'
-}
-else {
-  echo "The compression mode selected is either not supported or not understood by this script."
-  echo "Your files have not been compressed."
-}
+case $COMPRESSION_MODE in
+  compatible )
+    useCompatibleCompression
+    ;;
+  modern )
+    useModernCompression
+    ;;
+  experimental )
+    #echo 'Experimental compresion mode is disabled. Please select either the "compatible" or "modern" options.'
+    useExperimentalCompression
+    ;;
+  * )
+    echo "The compression mode selected is either not supported or not understood by this script."
+    echo "Your files have not been compressed."
+    ;;
+esac
+
+#if [[ $COMPRESSION_MODE == "compatible" ]] {
+#  useCompatibleCompression
+#}
+#elif [[ $COMPRESSION_MODE == "modern" ]] {
+#  useModernCompression
+#}
+#elif [[ $COMPRESSION_MODE == "experimental" ]] {
+#  echo 'Experimental compresion mode is disabled. Please select either the "compatible" or "modern" options.'
+#}
+#else {
+#  echo "The compression mode selected is either not supported or not understood by this script."
+#  echo "Your files have not been compressed."
+#}
