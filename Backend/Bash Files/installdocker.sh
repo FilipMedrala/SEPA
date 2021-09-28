@@ -22,18 +22,3 @@ sudo apt install docker-ce docker-ce-cli containerd.io docker-compose
 sudo usermod -aG docker ${USER}
 ## Give the current user the ability to run docker
 sudo chmod 666 /var/run/docker.sock
-
-## To check if docker is installed correctly, run the hello-world image
-# sudo docker run hello-world
-
-## Install Grafana
-## https://grafana.com/tutorials/grafana-fundamentals/
-sudo apt-get install -y adduser libfontconfig1
-wget https://dl.grafana.com/enterprise/release/grafana-enterprise_8.1.5_amd64.deb
-sudo dpkg -i grafana-enterprise_8.1.5_amd64.deb
-
-## To start the application, ensure that AFL++ is already running with STATSD enabled and the tags enabled
-docker-compose up -d
-
-## To shutdown docker containers
-# docker-compose down
