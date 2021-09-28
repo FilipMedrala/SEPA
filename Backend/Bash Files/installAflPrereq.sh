@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#### DEPRECIATED ###
 echo "SEPA P23 Auto-install Script"
 
 install2104() {

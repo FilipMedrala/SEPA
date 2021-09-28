@@ -1,5 +1,5 @@
 #!/bin/bash
-
+### DEPRECIATED ###
 ## Get supplied user id & job id from terminal
 ## UID = User ID
 ## JID = Job ID

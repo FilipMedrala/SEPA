@@ -1,4 +1,5 @@
 #!/bin/bash
+#### DERPRECIATED ###
 # Get values from AFL Fuzzer stats
 
 #SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
