@@ -33,9 +33,32 @@ services:
   
   grafana:
     image: grafana/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=SEPADMIN
+      - GF_SECURITY_ADMIN_PASSWORD=Fuzz#23
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_NAME=FUZZ_GANG
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_AUTH_ANONYMOUS_HIDE_VERSION=true
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/src/grafana/dashboards/grafana-afl++.json
     container_name: grafana
     restart: unless-stopped
+    volumes:
+      - /home/sepadmin/Documents/p23-directories/grafana:/src
     ports:
         - "3000:3000"
     networks:
       - statsd-net
+    depends_on: [prometheus]
+
+  aflplusplus:
+    image: aflplusplus/aflplusplus
+    container_name: aflplusplus
+    restart: on-failure
+    volumes:
+      - /home/sepadmin/Documents/p23-directories/afl:/src
+    networks:
+      - statsd-net
+    stdin_open: true
+    tty: true
