@@ -43,9 +43,8 @@
 
   </div>
   <div style="border-left: solid black">
-  </div>
 
-  <div class = "vertical-center">
+  <div class = "vertical-center" style = "padding-left: 50px">
   <a href="fuzzing.php">
   <img src="assets/shield-shaded.svg" style="width: 90%; padding-top: 100px"  alt="...">
   </a>
@@ -53,6 +52,7 @@
 
   </div>
   </div>
+</div>
 <?php include 'ui/ui-footer.inc';?>
 
 
