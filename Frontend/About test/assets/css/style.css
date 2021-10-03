@@ -54,7 +54,7 @@ h1,h2,h3,h4,h5,h6 {
 
 .page-heading {
 	margin: 0px 10px;
-	padding: 120px 0px;
+	padding: 50px 0px;
 	text-align: left;
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -958,7 +958,7 @@ footer p a:hover {
 }
 
 .about-us img {
-	width: 100%;
+	width: 50%;
 	overflow: hidden;
 }
 
