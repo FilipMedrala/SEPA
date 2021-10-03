@@ -41,6 +41,9 @@ afl_install() {
 	sudo make install
 	cd ../
 
+	echo "Install archiving programs"
+	sudo apt-get install -y zip unzip p7zip-full zstd
+	
 	echo "Cloning AFL Fuzzing test program fuzzgoat..."
 	cd $HOME/Documents
 	git clone https://github.com/fuzzstati0n/fuzzgoat && cd fuzzgoat
