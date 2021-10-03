@@ -3,7 +3,11 @@ version: '3'
 networks:
   statsd-net:
     driver: bridge
-
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.18.0.1/16
+    
 services:
   prometheus:
     image: prom/prometheus
@@ -16,7 +20,8 @@ services:
     ports:
       - "9090:9090"
     networks:
-      - statsd-net
+      statsd-net:
+        ipv4_address: 172.18.0.2
 
   statsd_exporter:
     image: prom/statsd-exporter
@@ -29,7 +34,8 @@ services:
       - "9102:9102/tcp"
       - "8125:9125/udp"
     networks:
-      - statsd-net
+      statsd-net:
+        ipv4_address: 172.18.0.3
   
   grafana:
     image: grafana/grafana:main-ubuntu
@@ -51,16 +57,17 @@ services:
     ports:
         - "3000:3000"
     networks:
-      - statsd-net
+      statsd-net:
+        ipv4_address: 172.18.0.4
     depends_on: [prometheus,statsd_exporter]
     
-  aflplusplus:
-    image: aflplusplus/aflplusplus
-    container_name: "afl"
-    restart: on-failure
-    volumes:
-      - /home/sepadmin/Documents/p23-directories/afl:/src
-    networks:
-      - statsd-net
-    stdin_open: true
-    tty: true
+  # aflplusplus:
+  #   image: aflplusplus/aflplusplus
+  #   container_name: "afl"
+  #   restart: on-failure
+  #   volumes:
+  #     - /home/sepadmin/Documents/p23-directories/afl:/src
+  #   networks:
+  #     - statsd-net
+  #   stdin_open: true
+  #   tty: true
