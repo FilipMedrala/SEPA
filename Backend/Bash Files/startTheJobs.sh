@@ -77,9 +77,14 @@ createDirStruct() {
   mkdir_dir1="$J_ROOT_DIR/$J_UUID/$J_JID/{afl_in,afl_out}"
   mkdir_dir2="$J_ROOT_DIR/$J_UUID/$J_JID/afl_source"
   mkdir_dir3="$J_ROOT_DIR/$J_UUID/$J_JID/afl_src_zips"
+  echo "Creating the required directories..."
   mkdir -p $mkdir_dir1
   mkdir -p $mkdir_dir2
   mkdir -p $mkdir_dir3
+  echo "Checking whether the directories exist..."
+  [ -d "$mkdir_dir1" ] && echo "Directory $mkdir_dir1 exists!"
+  [ -d "$mkdir_dir2" ] && echo "Directory $mkdir_dir2 exists!"
+  [ -d "$mkdir_dir3" ] && echo "Directory $mkdir_dir3 exists!"
 }
 ## Run the AFL job in a container via Docker
 runAflContainer() {
