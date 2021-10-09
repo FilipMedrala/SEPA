@@ -1,7 +1,7 @@
 <html>
 <body>
 
-Application name: <?php echo $_GET["appname"]; ?><br>
+Application name: <?php echo $_POST["appname"]; ?><br>
 
 
 
