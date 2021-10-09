@@ -1,36 +1,37 @@
 <?php
-session_start();
-    $_SESSION['dir'] = "C:/xampp";
-    require_once ("settings.php");
-    $conn = @mysqli_connect(
-    $host,
-    $user,
-    $pwd,
-    $sql_db
-    );
-    if (!$conn)
-    {
-      echo "mysql not connected ";
-      echo mysqli_connect_errno() . ":" . mysqli_connect_error();
-      exit;
-    }
-    else
-    {
-      echo "<p>Access granted.</p>";
-      $sql = "CREATE TABLE IF NOT EXISTS files (
-        uID VARCHAR(50)  NOT NULL,
-        Adr VARCHAR(50) NOT NULL
-      )";
-        $query = mysqli_query($conn, $sql);
-      if ($query === TRUE) {
-      echo "Table Files created successfully or already created";
-        }
-        else
-        {
-      echo "Error creating table: " . $conn->error;
-        }
-    }
-?>
+	session_start();
+	$_SESSION['dir'] = "C:/xampp";
+	require_once ("settings.php");
+	$conn = @mysqli_connect(
+	$host,
+	$user,
+	$pwd,
+	$sql_db
+	);
+	if (!$conn)
+	{
+	  echo "mysql not connected ";
+	  echo mysqli_connect_errno() . ":" . mysqli_connect_error();
+	  exit;
+	}
+	else
+	{
+	  echo "<p>Access granted.</p>";
+	  $sql = "CREATE TABLE IF NOT EXISTS files (
+	    uID VARCHAR(50)  NOT NULL,
+			Date CHAR(10) NOT NULL,
+	    Adr VARCHAR(50) NOT NULL
+	  )";
+		$query = mysqli_query($conn, $sql);
+	  if ($query === TRUE) {
+	  echo "Table Files created successfully or already created";
+		}
+		else
+		{
+	  echo "Error creating table: " . $conn->error;
+		}
+	}
+	?>
 
 <!doctype html>
 <html>
