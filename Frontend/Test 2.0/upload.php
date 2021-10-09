@@ -1,3 +1,21 @@
+<?php session_start();
+if(!isset($_COOKIE['userID'])) {
+  echo "Cookie named '" . 'userID' . "' is not set!";
+} else {
+  echo "Cookie '" . $_COOKIE['userID'] . "' is set!<br>";
+}
+$_SESSION["usrId"] = "test1234";
+$_SESSION["jobId"] = "1234";
+$_SESSION["dir"] = "C:/xampp";
+if(!file_exists('C:/xampp/' . $_COOKIE['userID']. '/'))
+{
+  echo "Folder for user created";
+  mkdir("C:/xampp/". $_COOKIE['userID']. "/", 0700, true);
+}
+else {
+  echo "Folder already exists for this user.";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +50,7 @@
             <div></div>
             <div></div>
         </div>
-    </div>  
+    </div>
     <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
@@ -52,7 +70,7 @@
                 <a class="nav-link" href="index.html">Home
                   <span class="sr-only">(current)</span>
                 </a>
-              </li> 
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="about.html">About Us</a>
               </li>
@@ -84,19 +102,19 @@
         </div>
       </section>
     </div>
-    
+
     <!-- Banner Ends Here -->
 
 
     <section class="about-us">
       <div class="container">
-        
+
 		 <div class="row">
 			<div class="col-lg-12">
-				<form action="/action_page.php" method="post" enctype="multipart/form-data>					
-					<input type="text" id="userid" name="userid" placeholder="User ID"><br><br>					
-					<input type="text" id="jobid" name="jobid" placeholder="Job ID"><br><br>					
-					<input type="text" id="appname" name="appname" placeholder="Application Name"><br><br>					
+				<form action="/action_page.php" method="post" enctype="multipart/form-data">
+					<input type="text" id="userid" name="userid" placeholder="User ID"><br><br>
+					<input type="text" id="jobid" name="jobid" placeholder="Job ID"><br><br>
+					<input type="text" id="appname" name="appname" placeholder="Application Name"><br><br>
 					<label for="jobtype">Job Type:</label><br>
 					Sorce Code &nbsp <input type="radio" id="source" name="jobtype" value="source">
 					&nbsp Binary &nbsp <input type="radio" id="binary" name="jobtype" value="binary">
@@ -114,28 +132,28 @@
                                       <option value="signalfx">signalfx</option>
 									  <option value="influxdb">influxdb</option>
                                </select><br><br>
-					
+
 					<div class="file-upload">
 					  <div class="file-select">
 						<div class="file-select-button" id="fileName">Choose Source Code or Binary File</div>
-						<div class="file-select-name" id="noFile">No file chosen...</div> 
+						<div class="file-select-name" id="noFile">No file chosen...</div>
 						<input type="file" name="chooseFile" id="chooseFile">
 					  </div>
 					</div>
 					<div class="file-upload">
 					   <div class="file-select">
 						<div class="file-select-button" id="fileName">Choose Test File (optional)</div>
-						<div class="file-select-name" id="noFile">No file chosen...</div> 
+						<div class="file-select-name" id="noFile">No file chosen...</div>
 						<input type="file" name="chooseFile" id="chooseFile">
 					  </div>
 					</div><br><br>
-					
+
 					<input type="submit" value="Submit"/>
 					<input type= "reset" value="Reset"/>
-				</form> 
+				</form>
 			</div>
         </div><br><br>
-      
+
         <div class="row">
           <div class="col-lg-12">
             <ul class="social-icons">
@@ -146,12 +164,12 @@
             </ul>
           </div>
         </div>
-        
-        
+
+
       </div>
     </section>
 
-    
+
     <footer>
       <div class="container">
         <div class="row">
@@ -185,7 +203,7 @@
     <script src="assets/js/accordions.js"></script>
 	<script src="assets/js/upload.js"></script>
 
-    <script language = "text/Javascript"> 
+    <script language = "text/Javascript">
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
       function clearField(t){                   //declaring the array outside of the
       if(! cleared[t.id]){                      // function makes it static and global
