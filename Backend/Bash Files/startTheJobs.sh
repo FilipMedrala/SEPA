@@ -90,8 +90,8 @@ runAflContainer() {
 #
 #}
 moveUploadedZipFromTemp() {
-  mv /var/www/html/aflfuzzerweb/files/uploadtmp/$J_ZIP_NAME1 "$J_ROOT_DIR/$J_UUID/$J_JID/afl_src_zips/$J_ZIP_NAME1"
-  mv /var/www/html/aflfuzzerweb/files/uploadtmp/$J_ZIP_NAME2 "$J_ROOT_DIR/$J_UUID/$J_JID/afl_src_zips/$J_ZIP_NAME2"
+  mv /var/www/html/aflfuzzerweb/files/uploadtmp/$J_ZIP_NAME1 $J_ZIP_ARC_LOC1
+  mv /var/www/html/aflfuzzerweb/files/uploadtmp/$J_ZIP_NAME2 $J_ZIP_ARC_LOC2
 }
 
 ### Script Execution Block
