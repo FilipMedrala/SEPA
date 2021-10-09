@@ -5,6 +5,7 @@
 # Gets the file path
 filepath=$1
 
+# Environment Parameters
 stats_flavor=$2
 
 /bin/cat <<EOM > "$filepath/.env-afl"
