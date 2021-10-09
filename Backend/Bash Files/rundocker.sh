@@ -9,7 +9,7 @@ target=$3
 
 if [ -d "/home/sepadmin/Documents/afl/$uuid/$jid" ]
 then
-	docker run --name afl-$jid --network="host" -tid -v /home/sepadmin/Documents/afl/$uuid/$jid:/src --env-file /src/.env-afl aflplusplus/aflplusplus
+	docker run --name afl-$jid --network="host" -tid -v /home/sepadmin/Documents/afl/$uuid/$jid:/src --env-file /home/sepadmin/Documents/afl/$uuid/$jid/.env-afl aflplusplus/aflplusplus
 	docker exec -tid afl-$jid afl-fuzz -D -i /src/afl_in -o /src/afl_out -- /src/source/$target @@
 else
 	echo "/home/sepadmin/Documents/afl/$uuid/$jid does not exist."
