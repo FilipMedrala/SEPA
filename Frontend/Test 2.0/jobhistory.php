@@ -82,24 +82,71 @@
   </section>
 </div>
 
+<?php
+session_start();
+if(!isset($_COOKIE['userID'])) {
+  echo "Cookie named '" . 'userID' . "' is not set!";
+} else {
+  echo "Cookie '" . $_COOKIE['userID'] . "' is set!<br>";
+}
+
+
+require_once ("settings.php");
+$conn = @mysqli_connect(
+$host,
+$user,
+$pwd,
+$sql_db
+);
+if (!$conn) {
+  echo "mysql not connected ";
+  echo mysqli_connect_errno() . ":" . mysqli_connect_error();
+  exit;
+}
+else {
+  echo "<p>Access granted.</p>";
+$dir = $_SESSION['dir'];
+$dirs = array_filter(glob('*'), 'is_dir');
+$i = 0;
+foreach($dirs as $folder)
+{
+  $i++;
+  //echo count($dirs);
+     echo  '<a href="$folder" download>' . $folder.'</a>';
+     echo "<br>";
+}
+
+$length = $i/10;
+$length = ceil($length);
+
+
+foreach($dirs as $folder)
+{
+  $i++;
+  //echo count($dirs);
+     echo  '<a href="$folder" download>' . $folder.'</a>';
+     echo "<br>";
+}
+
+echo $i;
+
+
+//print files
+//print_r($files);
+//echo '<pre>'; print_r($files); echo '</pre>';
+
+}
+ ?>
+
 <p>Previous Items Fuzzed</p>
 <div>
 <table>
  <tr>
-   <th>Job 1</th>
-   <td>Test</td>
-   <td>5</td>
+   <th>Job ID</th>
+   <th>Date</th>
+   <th>Download</th>
  </tr>
- <tr>
-   <th>Job 2</th>
-   <td>Test</td>
-   <td>5</td>
- </tr>
- <tr>
-   <th>Job 3</th>
-   <td>Test</td>
-   <td>14</td>
- </tr>
+
 </table>
 </div>
 
