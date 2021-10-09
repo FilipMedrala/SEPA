@@ -93,20 +93,15 @@
         
 		 <div class="row">
 			<div class="col-lg-12">
-				<form action="fuzzing.php" method="post" enctype="multipart/form-data>					
-					<input type="text" id="userid" name="userid" placeholder="User ID"><br><br>					
-					<input type="text" id="jobid" name="jobid" placeholder="Job ID"><br><br>					
+				<form action="fuzzing.php" method="post" >															
 					<input type="text" id="appname" name="appname" placeholder="Application Name"><br><br>					
 					<label for="jobtype">Job Type:</label><br>
-					Sorce Code &nbsp <input type="radio" id="source" name="jobtype" value="1">
+					Source Code &nbsp <input type="radio" id="source" name="jobtype" value="1" required>
 					&nbsp Binary &nbsp <input type="radio" id="binary" name="jobtype" value="1">
 					<br><br>
-					<label for="testingoptions">Testing options:</label><br>
-					&nbsp Exit when done <input type="checkbox" id="testingoptions" name="testingoptions" value="exit">
-					&nbsp &nbsp Timeout <input type="checkbox" id="testingoptions" name="testingoptions" value="timeout">
-					&nbsp Fast Calculation <input type="checkbox" id="testingoptions" name="testingoptions" value="fastcal">
-					&nbsp Autoresume <input type="checkbox" id="testingoptions" name="testingoptions" value="autoresume">
-					&nbsp Debug <input type="checkbox" id="debug" name="debug" value="debug"><br><br>
+					<label for="testingoptions">Fast Calculation:</label><br>
+						Yes &nbsp <input type="radio" id="fastcal" name="jobtype" value="1" required>
+					&nbsp No &nbsp <input type="radio" id="fastcal" name="jobtype" value="0"><br><br>
 					<select class="form-select mt-3" required>
                                       <option selected disabled value="">AFL_STATSD_TAGS_FLAVOR</option>
                                       <option value="dogstatsd">dogstatsd</option>
