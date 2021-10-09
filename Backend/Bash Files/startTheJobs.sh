@@ -18,7 +18,7 @@ J_ZIP_NAME2=$6
 
 ## Variables that are static and should never change per job
 J_START_TIMESTAMP=$(date +%s)
-J_ROOT_DIR=""
+J_ROOT_DIR="/home/sepadmin/Documents/AFLFuzzer"
 
 ## Variables that are initially static and change based on each job
 J_ZIP_ARC_LOC1="$J_ROOT_DIR/$J_UUID/$J_JID/afl_src_zips/$J_ZIP_NAME1"
@@ -89,6 +89,7 @@ createDirStruct() {
 }
 ## Run the AFL job in a container via Docker
 runAflContainer() {
+  echo "Starting AFL Job via Docker..."
   /bin/bash rundocker.sh $J_UUID $J_JID $J_TARGET
 }
 ## Copy the test cases
