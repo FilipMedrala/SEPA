@@ -13,8 +13,9 @@ J_UUID=$1
 J_JID=$2
 J_TYPE=$3
 J_PARAMS=$4
-J_ZIP_NAME1=$5
-J_ZIP_NAME2=$6
+J_PARAMS_STATSD=$5
+J_ZIP_NAME1=$6
+J_ZIP_NAME2=$7
 
 ## Variables that are static and should never change per job
 J_START_TIMESTAMP=$(date +%s)
@@ -25,6 +26,7 @@ J_ZIP_ARC_LOC1="$J_ROOT_DIR/$J_UUID/$J_JID/afl_src_zips/$J_ZIP_NAME1"
 J_ZIP_ARC_LOC2="$J_ROOT_DIR/$J_UUID/$J_JID/afl_src_zips/$J_ZIP_NAME2"
 J_ZIP_DST_LOC1="$J_ROOT_DIR/$J_UUID/$J_JID/afl_source"
 J_ZIP_DST_LOC2="$J_ROOT_DIR/$J_UUID/$J_JID/afl_in"
+J_USRJOB_DIR="$J_ROOT_DIR/$J_UUID/$J_JID/"
 
 ### Functions block
 ### Stores the functions that are utilised within the script
@@ -87,6 +89,10 @@ createDirStruct() {
   [ -d "$chkdir3" ] && echo "Directory $chkdir3 exists!"
   [ -d "$chkdir4" ] && echo "Directory $chkdir4 exists!"
 }
+##
+createDockerEnvFile() {
+  /bin/bash createenvfile.sh $J_USRJOB_DIR $J_PARAMS_STATSD
+}
 ## Run the AFL job in a container via Docker
 runAflContainer() {
   echo "Starting AFL Job via Docker..."
@@ -119,5 +125,7 @@ then
 fi
 ## Copy the test cases to the afl in directory
 #copyTestCases
+## Create the Docker environment file
+createDockerEnvFile
 ## Run the darn thing
 runAflContainer
