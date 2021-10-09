@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/owl.css">
+	<link rel="stylesheet" href="assets/css/upload.css">
 
   </head>
 
@@ -47,7 +48,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="login.php">Login</a>
               </li>
-			  <li class="nav-item active">
+			  <li class="nav-item">
                 <a class="nav-link" href="index.html">Home
                   <span class="sr-only">(current)</span>
                 </a>
@@ -55,7 +56,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="about.html">About Us</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item active">
                 <a class="nav-link" href="dashboard.html">Dashboard</a>
               </li>
               <li class="nav-item">
@@ -75,8 +76,8 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="text-content">
-                <h4>Home</h4>
-                <h2>Our Platform</h2>
+                <h4>File Upload</h4>
+                <h2>Choose files and parameters for testing</h2>
               </div>
             </div>
           </div>
@@ -90,39 +91,50 @@
     <section class="about-us">
       <div class="container">
 
-        <div class="row">
-          <div class="col-lg-12">
-            <img src="assets/images/afl.jpg" alt="">
-            <p>The system to be developed is an easy-to-use web portal which will allow users to submit their own program files to be tested using fuzzing software. The backend fuzz testing software that will be utilised is the open-source American Fuzzy Lop (AFL) fuzzer. It follows the common brute-force technique while also implementing an instrumentation-guided genetic algorithm, meaning it mutates the initial seed input to increase the amount of path coverage, hence delivering performance superior to those of regular blind fuzzers. The web portal will include an introductory homepage and incorporate a user management framework to enable easy file tracking and progress indicators displayed on a dashboard. </p>
-          </div>
-        </div>
+		 <div class="row">
+			<div class="col-lg-12">
+				<form action="fuzzing.php" method="post" enctype="multipart/form-data>
+					<input type="text" id="userid" name="userid" placeholder="User ID"><br><br>
+					<input type="text" id="jobid" name="jobid" placeholder="Job ID"><br><br>
+					<input type="text" id="appname" name="appname" placeholder="Application Name"><br><br>
+					<label for="jobtype">Job Type:</label><br>
+					Sorce Code &nbsp <input type="radio" id="source" name="jobtype" value="1">
+					&nbsp Binary &nbsp <input type="radio" id="binary" name="jobtype" value="1">
+					<br><br>
+					<label for="testingoptions">Testing options:</label><br>
+					&nbsp Exit when done <input type="checkbox" id="testingoptions" name="testingoptions" value="exit">
+					&nbsp &nbsp Timeout <input type="checkbox" id="testingoptions" name="testingoptions" value="timeout">
+					&nbsp Fast Calculation <input type="checkbox" id="testingoptions" name="testingoptions" value="fastcal">
+					&nbsp Autoresume <input type="checkbox" id="testingoptions" name="testingoptions" value="autoresume">
+					&nbsp Debug <input type="checkbox" id="debug" name="debug" value="debug"><br><br>
+					<select class="form-select mt-3" required>
+                                      <option selected disabled value="">AFL_STATSD_TAGS_FLAVOR</option>
+                                      <option value="dogstatsd">dogstatsd</option>
+                                      <option value="librato">librato</option>
+                                      <option value="signalfx">signalfx</option>
+									  <option value="influxdb">influxdb</option>
+                               </select><br><br>
 
-        <!-- <div class="row">
-          <div class="col-lg-6">
-          <h4>Client one </h4>
-          	<p>Information about client one.</p>
-          </div>
-          <div class="col-lg-6">
-          <h4>Client two </h4>
-          	<p>Information about client two.</p>
-          </div>
-        </div> -->
+					<div class="file-upload">
+					  <div class="file-select">
+						<div class="file-select-button" id="fileName">Choose Source Code or Binary File</div>
+						<div class="file-select-name" id="noFile">No file chosen...</div>
+						<input type="file" name="chooseFile" id="chooseFile">
+					  </div>
+					</div>
+					<div class="file-upload">
+					   <div class="file-select">
+						<div class="file-select-button" id="fileName">Choose Test File (optional)</div>
+						<div class="file-select-name" id="noFile">No file chosen...</div>
+						<input type="file" name="chooseFile" id="chooseFile">
+					  </div>
+					</div><br><br>
 
-        <div class="row">
-          <div class="col-lg-4 col-md-6">
-          <h4>Development proccess</h4>
-          	<p>Information about the fuzzing platform.</p>
-          </div>
-          <div class="col-lg-4 col-md-6">
-          <h4>How it works?</h4>
-          	<p>Steps on how to use it.</p>
-          </div>
-          <div class="col-lg-4">
-          <h4>What are the results?</h4>
-          	<p>Some expected outcomes.</p>
-          </div>
-        </div>
-
+					<input type="submit" value="Submit"/>
+					<input type= "reset" value="Reset"/>
+				</form>
+			</div>
+        </div><br><br>
 
         <div class="row">
           <div class="col-lg-12">
@@ -171,6 +183,7 @@
     <script src="assets/js/slick.js"></script>
     <script src="assets/js/isotope.js"></script>
     <script src="assets/js/accordions.js"></script>
+	<script src="assets/js/upload.js"></script>
 
     <script language = "text/Javascript">
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field

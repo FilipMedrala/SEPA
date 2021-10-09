@@ -70,7 +70,7 @@ function signUpWithEmailPassword() {
       focusError("password", page);
       focusError("email", page);
     } else {
-      errorText[page].innerHTML = "Sorry, something went wrong! Please try again.";   
+      errorText[page].innerHTML = "Sorry, something went wrong! Please try again.";
     }
     errorText[page].classList.add("error");
   }
@@ -110,9 +110,13 @@ function signUpWithEmailPassword() {
 
     // [START auth_signin_password]
     firebase.auth().signInWithEmailAndPassword(email, password)
+
       .then((userCredential) => {
         // Signed in
+
         var user = userCredential.user;
+        document.cookie = "userID=" + user.uid;
+
         console.log(user);
         window.location.href = "index.html";
         // ...

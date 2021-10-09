@@ -45,7 +45,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="login.html">Login</a>
+            <a class="nav-link" href="login.php">Login</a>
           </li>
     <li class="nav-item">
             <a class="nav-link" href="index.html">Home
@@ -80,6 +80,19 @@
       </div>
     </div>
   </section>
+</div>
+
+
+<p>Previous Items Fuzzed</p>
+<div>
+<table>
+ <tr>
+   <th>Job ID</th>
+   <th>Date</th>
+   <th>Download</th>
+ </tr>
+
+</table>
 </div>
 
 <?php
@@ -138,17 +151,6 @@ echo $i;
 }
  ?>
 
-<p>Previous Items Fuzzed</p>
-<div>
-<table>
- <tr>
-   <th>Job ID</th>
-   <th>Date</th>
-   <th>Download</th>
- </tr>
-
-</table>
-</div>
 
 <style>
 table {
