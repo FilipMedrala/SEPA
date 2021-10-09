@@ -112,7 +112,7 @@ unzipRecvArchive2
 delTmpRecvArchive1
 delTmpRecvArchive2
 ## If the job is of type source code, compile it
-if [[ $JOB_TYPE == 1 ]]
+if [[ $J_TYPE == 1 ]]
 then
   ## Run the compilation script
   runAflCompileJType1
