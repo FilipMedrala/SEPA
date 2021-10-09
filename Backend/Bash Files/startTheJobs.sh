@@ -89,7 +89,7 @@ createDirStruct() {
   [ -d "$chkdir3" ] && echo "Directory $chkdir3 exists!"
   [ -d "$chkdir4" ] && echo "Directory $chkdir4 exists!"
 }
-##
+## Create the Docker environment file needed to run the container
 createDockerEnvFile() {
   /bin/bash createenvfile.sh $J_USRJOB_DIR $J_PARAMS_STATSD
 }
