@@ -74,17 +74,18 @@ runAflCompileJType1() {
 }
 ## Create the necessary directory structure
 createDirStruct() {
-  mkdir_dir1="$J_ROOT_DIR/$J_UUID/$J_JID/{afl_in,afl_out}"
-  mkdir_dir2="$J_ROOT_DIR/$J_UUID/$J_JID/afl_source"
-  mkdir_dir3="$J_ROOT_DIR/$J_UUID/$J_JID/afl_src_zips"
+  mkdir_dir="$J_ROOT_DIR/$J_UUID/$J_JID/{afl_in,afl_out,afl_source,afl_src_zips}"
+  chkdir1="$J_ROOT_DIR/$J_UUID/$J_JID/afl_in"
+  chkdir2="$J_ROOT_DIR/$J_UUID/$J_JID/afl_out"
+  chkdir3="$J_ROOT_DIR/$J_UUID/$J_JID/afl_source"
+  chkdir4="$J_ROOT_DIR/$J_UUID/$J_JID/afl_src_zips"
   echo "Creating the required directories..."
-  mkdir -p $mkdir_dir1
-  mkdir -p $mkdir_dir2
-  mkdir -p $mkdir_dir3
+  mkdir -p $mkdir_dir
   echo "Checking whether the directories exist..."
-  [ -d "$mkdir_dir1" ] && echo "Directory $mkdir_dir1 exists!"
-  [ -d "$mkdir_dir2" ] && echo "Directory $mkdir_dir2 exists!"
-  [ -d "$mkdir_dir3" ] && echo "Directory $mkdir_dir3 exists!"
+  [ -d "$chkdir1" ] && echo "Directory $chkdir1 exists!"
+  [ -d "$chkdir3" ] && echo "Directory $chkdir2 exists!"
+  [ -d "$chkdir3" ] && echo "Directory $chkdir3 exists!"
+  [ -d "$chkdir4" ] && echo "Directory $chkdir4 exists!"
 }
 ## Run the AFL job in a container via Docker
 runAflContainer() {
