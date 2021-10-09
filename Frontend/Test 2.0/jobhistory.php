@@ -218,5 +218,21 @@ tr:nth-child(even) {
       }
   }
   </script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script>
+
+    var firebaseConfig = {
+    apiKey: "AIzaSyDIR6Go8QoYic9psU4R_YRrfNp6e_HZQc4",
+    authDomain: "test-62d52.firebaseapp.com",
+    projectId: "test-62d52",
+    storageBucket: "test-62d52.appspot.com",
+    messagingSenderId: "790136710979",
+    appId: "1:790136710979:web:1ac3789f5d8d038ca9f1f6"
+  };
+  
+    firebase.initializeApp(firebaseConfig);
+    var user = firebase.auth().currentUser;
+  </script>
 </body>
 </html>
