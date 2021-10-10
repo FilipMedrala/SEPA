@@ -29,6 +29,7 @@ J_ZIP_ARC_LOC2="$J_ROOT_DIR/$J_UUID/$J_JID/afl_src_zips/$J_ZIP_NAME2"
 J_ZIP_DST_LOC1="$J_ROOT_DIR/$J_UUID/$J_JID/afl_source"
 J_ZIP_DST_LOC2="$J_ROOT_DIR/$J_UUID/$J_JID/afl_in"
 J_USRJOB_DIR="$J_ROOT_DIR/$J_UUID/$J_JID/"
+J_TARGET="$J_ROOT_DIR/$J_UUID/$J_JID/afl_source/$J_APPNAME"
 
 ### Functions block
 ### Stores the functions that are utilised within the script
