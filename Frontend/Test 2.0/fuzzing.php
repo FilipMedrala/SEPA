@@ -23,13 +23,13 @@ else {
   $upload_is_ok = 0;
 }
 
-if ($upload_is_ok === 1) {
-  echo '<p>Binary uploaded successfully!</p>';
-  echo "website should work";
-else {
-  echo '<p>Binary not uploaded successfully, please check logs!</p>';
-  echo "website is cooked";
-}
+#if ($upload_is_ok === 1) {
+#  echo '<p>Binary uploaded successfully!</p>';
+#  echo 'website should work';
+#else {
+#  echo '<p>Binary not uploaded successfully, please check logs!</p>';
+#  echo 'website is cooked';
+#}
 
 
 
