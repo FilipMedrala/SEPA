@@ -26,7 +26,6 @@ else {
 if ($upload_is_ok === 1) {
   echo '<p>Binary uploaded successfully!</p>';
   echo "website should work";
-  #exec(/bin/bash /home/sepadmin/Documents/AFLscripts/startTheJobs.sh
 else {
   echo '<p>Binary not uploaded successfully, please check logs!</p>';
   echo "website is cooked";
