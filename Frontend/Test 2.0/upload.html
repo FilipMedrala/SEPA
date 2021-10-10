@@ -1,54 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Group 23">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
-
     <title>AFL fuzzing platform - About Page</title>
-
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/owl.css">
-	<link rel="stylesheet" href="assets/css/upload.css">
-
+    <link rel="stylesheet" href="assets/css/upload.css">
   </head>
-
   <body>
-
     <!-- ***** Preloader Start ***** -->
     <div id="preloader">
-        <div class="jumper">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
+      <div class="jumper">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
     <!-- ***** Preloader End ***** -->
-
     <!-- Header -->
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
           <a class="navbar-brand" href="index.html"><h2>Fuzzing platform<em>.</em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" href="login.html">Login</a>
               </li>
-			  <li class="nav-item">
+              <li class="nav-item">
                 <a class="nav-link" href="index.html">Home
                   <span class="sr-only">(current)</span>
                 </a>
@@ -60,6 +50,9 @@
                 <a class="nav-link" href="dashboard.html">Dashboard</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="livemetrics.html">Live Metrics</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="exit.html">Sign out</a>
               </li>
             </ul>
@@ -67,7 +60,6 @@
         </div>
       </nav>
     </header>
-
     <!-- Page Content -->
     <!-- Banner Starts Here -->
     <div class="heading-page header-text">
@@ -84,59 +76,52 @@
         </div>
       </section>
     </div>
-
     <!-- Banner Ends Here -->
-
-
     <section class="about-us">
       <div class="container">
-
-		 <div class="row">
-			<div class="col-lg-12">
-				<form action="fuzzing.php" method="POST" enctype="multipart/form-data">
-					<input type="text" id="appname" name="appname" placeholder="Application Name"><br><br>
-					<label for="jobtype">Job Type:</label><br>
-					Source Code &nbsp <input type="radio" id="source" name="jobtype" value="1" required>
-					&nbsp Binary &nbsp <input type="radio" id="binary" name="jobtype" value="2">
-					<br><br>
-					<label for="testingoptions">Fast Calculation:</label><br>
-						Yes &nbsp <input type="radio" id="fastcal" name="fastcal" value="1" required>
-					&nbsp No &nbsp <input type="radio" id="fastcal" name="fastcal" value="0"><br><br>
-					<select class="form-select mt-3" name="statsd" required>
-                                      <option selected disabled value="">AFL_STATSD_TAGS_FLAVOR</option>
-                                      <option value="dogstatsd">dogstatsd</option>
-                                      <option value="librato">librato</option>
-                                      <option value="signalfx">signalfx</option>
-									  <option value="influxdb">influxdb</option>
-                               </select><br><br>
-					<select class="form-select mt-3" name="compiler" required>
-                                      <option selected disabled value="">Compiler</option>
-                                      <option value="lto">lto</option>
-                                      <option value="llvm">llvm</option>
-                                      <option value="gcc">gcc</option>
-
-                               </select><br><br>
-					<div class="file-upload">
-					  <div class="file-select">
-						<div class="file-select-button" id="fileName">Choose Source Code or Binary File</div>
-						<div class="file-select-name" id="noFile">No file chosen...</div>
-						<input type="file" name="chooseFile" id="chooseFile">
-					  </div>
-					</div><br>
-					<div class="file-upload2">
-					   <div class="file-select2">
-						<div class="file-select-button2" id="fileName2" >Choose Test File (optional)</div>
-						<div class="file-select-name2" id="noFile2">No file chosen...</div>
-						<input type="file" name="chooseFile2" id="chooseFile2">
-					  </div>
-					</div><br><br>
-
-					<input type="submit" value="Submit"/>
-					<input type= "reset" value="Reset"/>
-				</form>
-			</div>
+        <div class="row">
+          <div class="col-lg-12">
+            <form action="fuzzing.php" method="POST" enctype="multipart/form-data">
+              <input type="text" id="appname" name="appname" placeholder="Application Name"><br><br>
+              <label for="jobtype">Job Type:</label><br>
+              Source Code &nbsp <input type="radio" id="source" name="jobtype" value="1" required>
+              &nbsp Binary &nbsp <input type="radio" id="binary" name="jobtype" value="2">
+              <br><br>
+              <label for="testingoptions">Fast Calculation:</label><br>
+              Yes &nbsp <input type="radio" id="fastcal" name="fastcal" value="1" required>
+              &nbsp No &nbsp <input type="radio" id="fastcal" name="fastcal" value="0"><br><br>
+              <select class="form-select mt-3" name="statsd" required>
+                <option selected disabled value="">AFL_STATSD_TAGS_FLAVOR</option>
+                <option value="dogstatsd">dogstatsd</option>
+                <option value="librato">librato</option>
+                <option value="signalfx">signalfx</option>
+                <option value="influxdb">influxdb</option>
+              </select><br><br>
+              <select class="form-select mt-3" name="compiler" required>
+                <option selected disabled value="">Compiler</option>
+                <option value="lto">lto</option>
+                <option value="llvm">llvm</option>
+                <option value="gcc">gcc</option>
+              </select><br><br>
+              <div class="file-upload">
+                <div class="file-select">
+                  <div class="file-select-button" id="fileName">Choose Source Code or Binary File</div>
+                  <div class="file-select-name" id="noFile">No file chosen...</div>
+                  <input type="file" name="chooseFile" id="chooseFile">
+                </div>
+              </div><br>
+              <div class="file-upload2">
+                <div class="file-select2">
+                  <div class="file-select-button2" id="fileName2" >Choose Test File (optional)</div>
+                  <div class="file-select-name2" id="noFile2">No file chosen...</div>
+                  <input type="file" name="chooseFile2" id="chooseFile2">
+                </div>
+              </div><br><br>
+              <input type="submit" value="Submit"/>
+              <input type= "reset" value="Reset"/>
+            </form>
+          </div>
         </div><br><br>
-
         <div class="row">
           <div class="col-lg-12">
             <ul class="social-icons">
@@ -147,12 +132,8 @@
             </ul>
           </div>
         </div>
-
-
       </div>
     </section>
-
-
     <footer>
       <div class="container">
         <div class="row">
@@ -173,43 +154,37 @@
         </div>
       </div>
     </footer>
-
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
     <!-- JavaScript Files -->
     <script src="assets/js/custom.js"></script>
     <script src="assets/js/owl.js"></script>
     <script src="assets/js/slick.js"></script>
     <script src="assets/js/isotope.js"></script>
     <script src="assets/js/accordions.js"></script>
-	<script src="assets/js/upload.js"></script>
-
+    <script src="assets/js/upload.js"></script>
     <script language = "text/Javascript">
-      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
-      function clearField(t){                   //declaring the array outside of the
-      if(! cleared[t.id]){                      // function makes it static and global
-          cleared[t.id] = 1;  // you could use true and false, but that's more typing
-          t.value='';         // with more chance of typos
-          t.style.color='#fff';
-          }
-      }
+    cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+    function clearField(t){                   //declaring the array outside of the
+    if(! cleared[t.id]){                      // function makes it static and global
+    cleared[t.id] = 1;  // you could use true and false, but that's more typing
+    t.value='';         // with more chance of typos
+    t.style.color='#fff';
+    }
+    }
     </script>
     <script>
-
-      var firebaseConfig = {
-      apiKey: "AIzaSyDIR6Go8QoYic9psU4R_YRrfNp6e_HZQc4",
-      authDomain: "test-62d52.firebaseapp.com",
-      projectId: "test-62d52",
-      storageBucket: "test-62d52.appspot.com",
-      messagingSenderId: "790136710979",
-      appId: "1:790136710979:web:1ac3789f5d8d038ca9f1f6"
+    var firebaseConfig = {
+    apiKey: "AIzaSyDIR6Go8QoYic9psU4R_YRrfNp6e_HZQc4",
+    authDomain: "test-62d52.firebaseapp.com",
+    projectId: "test-62d52",
+    storageBucket: "test-62d52.appspot.com",
+    messagingSenderId: "790136710979",
+    appId: "1:790136710979:web:1ac3789f5d8d038ca9f1f6"
     };
-
-      firebase.initializeApp(firebaseConfig);
-      var user = firebase.auth().currentUser;
+    firebase.initializeApp(firebaseConfig);
+    var user = firebase.auth().currentUser;
     </script>
-
   </body>
 </html>
