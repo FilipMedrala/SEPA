@@ -11,14 +11,14 @@ function sanitise_input($data)
 }
 function sanitise_input_l2($data)
 {
-  filter_var($data, FILTER_SANITIZE_STRING);
-  sanitise_input($data);
+  $data = sanitise_input($data);
+  $data = filter_var($data, FILTER_SANITIZE_STRING);
   return $data;
 }
 function sanitise_input_l3($data)
 {
-  filter_var($data, FILTER_SANITIZE_NUMBER_INT);
-  sanitise_input($data);
+  $data = sanitise_input($data);
+  $data = filter_var($data, FILTER_SANITIZE_NUMBER_INT);
   return $data;
 }
 
@@ -26,12 +26,20 @@ function sanitise_input_l3($data)
 ## leave uuid untouched, format included hyphen & digits
 ## Will be fixed later
 $P1 = ($_POST['userid']);
-$P2 = sanitise_input_l3(($_POST['jobid']));
-$P3 = sanitise_input_l2(($_POST['appname']));
-$P4 = sanitise_input_l3(($_POST['jobtype']));
-$P5 = sanitise_input_l3(($_POST['fastcal']));
-$P6 = sanitise_input_l2(($_POST['statsd']));
-$P7 = sanitise_input_l2(($_POST['compiler']));
+$P2 = ($_POST['jobid']);
+$P3 = ($_POST['appname']);
+$P4 = ($_POST['jobtype']);
+$P5 = ($_POST['fastcal']);
+$P6 = ($_POST['statsd']);
+$P7 = ($_POST['compiler']);
+
+$P1san = $P1;
+$P2san = sanitise_input_l3($P2);
+$P3san = sanitise_input_l2($P3);
+$P4san = sanitise_input_l3($P4);
+$P5san = sanitise_input_l3($P5);
+$P6san = sanitise_input_l2($P6);
+$P7san = sanitise_input_l2($P7);
 
 #echo "<p>Variables dump: $P1, $P2, $P3, $P4, $P5, $P6, $P7</p>";
 
