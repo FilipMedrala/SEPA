@@ -37,8 +37,9 @@ if ($upload_temp_is_ok === 1 && $upload_is_ok === 1) {
     $id = $_COOKIE['userID'];
     $dir = $_SESSION["dir"];
     $date = date('d/m/Y');
-    $sql = "INSERT INTO `files`(`uID`, `Date`,`Adr`)
-    VALUES('$id', '$date', '$dir')";
+    $file = basename($_FILES["usrFile"]["name"]);
+    $sql = "INSERT INTO `files`(`uID`, `Date`,`Adr`, `File` )
+    VALUES('$id', '$date', '$dir', '$file')";
 
     if ($conn->query($sql) === TRUE) {
     echo "Table inserted  successfully";
