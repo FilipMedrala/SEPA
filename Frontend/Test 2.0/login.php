@@ -1,37 +1,58 @@
 <?php
-	session_start();
-	$_SESSION['dir'] = "C:/xampp";
-	require_once ("settings.php");
-	$conn = @mysqli_connect(
-	$host,
-	$user,
-	$pwd,
-	$sql_db
-	);
-	if (!$conn)
-	{
-	  echo "mysql not connected ";
-	  echo mysqli_connect_errno() . ":" . mysqli_connect_error();
-	  exit;
-	}
-	else
-	{
-	  echo "<p>Access granted.</p>";
-	  $sql = "CREATE TABLE IF NOT EXISTS files (
-	    uID VARCHAR(50)  NOT NULL,
-			Date CHAR(10) NOT NULL,
-	    Adr VARCHAR(50) NOT NULL
-	  )";
-		$query = mysqli_query($conn, $sql);
-	  if ($query === TRUE) {
-	  echo "Table Files created successfully or already created";
-		}
-		else
-		{
-	  echo "Error creating table: " . $conn->error;
-		}
-	}
-	?>
+session_start();
+if(!isset($_COOKIE['userID'])) {
+  echo "Cookie named '" . 'userID' . "' is not set!";
+} else {
+  echo "Cookie '" . $_COOKIE['userID'] . "' is set!<br>";
+}
+
+
+require_once ("settings.php");
+$conn = @mysqli_connect(
+$host,
+$user,
+$pwd,
+$sql_db
+);
+if (!$conn) {
+  echo "mysql not connected ";
+  echo mysqli_connect_errno() . ":" . mysqli_connect_error();
+  exit;
+}
+else {
+  echo "<p>Access granted.</p>";
+$dir = $_SESSION['dir'];
+$dirs = array_filter(glob('*'), 'is_dir');
+$sql = "SELECT File, Date FROM files ORDER BY File";
+$query = mysqli_query($conn, $sql);
+$table_rows = array();
+$i = 0;
+if ($query) {
+  while ($row = $query -> fetch_row()) {
+  //  printf ("%s (%s)\n", $row[0], $row[1]);
+    $table_rows[$i]['file'] = $row[0];
+    $table_rows[$i]['date'] = $row[1];
+    $i++;
+  }
+  $count = $i;
+  $query -> free_result();
+}
+$i = 0;
+foreach($dirs as $folder)
+{
+     $table_rows[$i]['download'] = $folder;
+  //   echo  '<a href="$folder" download>' . $folder.'</a>';
+    // echo "<br>";
+    $i++;
+}
+
+for($i=0; $i < $count; $i++)
+{
+  echo $table_rows[$i]['file'] . "-" . $table_rows[$i]['date'] . "-" . $table_rows[$i]['download'];
+  echo '<p><br></p>';
+}
+}
+ ?>
 
 <!doctype html>
 <html>

@@ -92,8 +92,7 @@
    <th>Download</th>
  </tr>
 
-</table>
-</div>
+
 
 <?php
 session_start();
@@ -120,36 +119,53 @@ else {
   echo "<p>Access granted.</p>";
 $dir = $_SESSION['dir'];
 $dirs = array_filter(glob('*'), 'is_dir');
+
+$sql = "SELECT File, Date FROM files ORDER BY File";
+$query = mysqli_query($conn, $sql);
+$table_rows = array();
+if ($query) {
+  while ($row = $query -> fetch_row()) {
+  //  printf ("%s (%s)\n", $row[0], $row[1]);
+    $i = 0;
+    $table_rows[$i]['file'] = $row[0];
+    $table_rows[$i]['date'] = $row[1];
+    $i++;
+  }
+  $count = $i;
+  $query -> free_result();
+}
 $i = 0;
 foreach($dirs as $folder)
 {
-  $i++;
-  //echo count($dirs);
-     echo  '<a href="$folder" download>' . $folder.'</a>';
-     echo "<br>";
+     $table_rows[$i]['download'] = $folder;
+
+
+    $i++;
 }
 
-$length = $i/10;
-$length = ceil($length);
-
-
-foreach($dirs as $folder)
+for($i=0; $i < $count; $i++)
 {
-  $i++;
-  //echo count($dirs);
-     echo  '<a href="$folder" download>' . $folder.'</a>';
-     echo "<br>";
+
+  ?>
+            <tr>
+              <td><?php echo $table_rows[$i]['file']?></td>
+              <td><?php echo $table_rows[$i]['date']?></td>
+              <td><?php echo  '<a href="$folder" Download> Download File </a>'?></td>
+
+            </tr>
+        <?php
+  echo '<p><br></p>';
+}
 }
 
-echo $i;
 
 
-//print files
-//print_r($files);
-//echo '<pre>'; print_r($files); echo '</pre>';
 
-}
+
  ?>
+
+</table>
+</div>
 
 
 <style>
@@ -230,7 +246,7 @@ tr:nth-child(even) {
     messagingSenderId: "790136710979",
     appId: "1:790136710979:web:1ac3789f5d8d038ca9f1f6"
   };
-  
+
     firebase.initializeApp(firebaseConfig);
     var user = firebase.auth().currentUser;
   </script>
