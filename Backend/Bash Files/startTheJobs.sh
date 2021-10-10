@@ -11,11 +11,13 @@
 ## Variables that are pulled from the frontend per job
 J_UUID=$1
 J_JID=$2
-J_TYPE=$3
-J_PARAMS=$4
-J_PARAMS_STATSD=$5
-J_ZIP_NAME1=$6
-J_ZIP_NAME2=$7
+J_APPNAME=$3
+J_TYPE=$4
+J_PARAMS=$5
+J_PARAMS_STATSD=$6
+J_COMPILER=$7
+J_ZIP_NAME1=$8
+J_ZIP_NAME2=$9
 
 ## Variables that are static and should never change per job
 J_START_TIMESTAMP=$(date +%s)
@@ -66,7 +68,7 @@ runUnZipProcessFailCode() {
 }
 ## Compile the source code via AFL Instrumentation
 runAflCompileJType1() {
-  /bin/bash compileAflJob.sh $JOB_UID $JOB_JID $JOB_TNAME $JOB_COMPILER
+  /bin/bash compileAflJob.sh $J_UUID $J_JID $J_APPNAME $J_COMPILER
   COMPILE_STATUS=$?
   if [[ $COMPILE_STATUS -ne 0 ]]
   then
@@ -91,7 +93,7 @@ createDirStruct() {
 }
 ## Create the Docker environment file needed to run the container
 createDockerEnvFile() {
-  /bin/bash createenvfile.sh $J_USRJOB_DIR $J_PARAMS_STATSD
+  /bin/bash createenvfile.sh $J_USRJOB_DIR $J_PARAMS_STATSD $J_PARAMS
 }
 ## Run the AFL job in a container via Docker
 runAflContainer() {
