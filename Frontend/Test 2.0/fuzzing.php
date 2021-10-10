@@ -14,15 +14,22 @@ function sanitise_input_l2($data)
   filter_var($data, FILTER_SANITIZE_STRING);
   return $data;
 }
+function sanitise_input_l3($data)
+{
+  filter_var($data, FILTER_SANITIZE_NUMBER_INT);
+  return $data;
+}
 
 ## Get Parameters
+## leave uuid untouched, format included hyphen & digits
+## Will be fixed later
 $P1 = ($_POST['userid']);
-$P2 = ($_POST['jobid']);
-$P3 = sanitise_input(($_POST['appname']));
-$P4 = ($_POST['jobtype']);
-$P5 = ($_POST['fastcal']);
-$P6 = ($_POST['statsd']);
-$P7 = ($_POST['compiler']);
+$P2 = sanitise_input_l3(($_POST['jobid']));
+$P3 = sanitise_input_l2(($_POST['appname']));
+$P4 = sanitise_input_l3(($_POST['jobtype']));
+$P5 = sanitise_input_l3(($_POST['fastcal']));
+$P6 = sanitise_input_l2(($_POST['statsd']));
+$P7 = sanitise_input_l2(($_POST['compiler']));
 
 #echo "<p>Variables dump: $P1, $P2, $P3, $P4, $P5, $P6, $P7</p>";
 
