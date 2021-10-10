@@ -12,11 +12,13 @@ function sanitise_input($data)
 function sanitise_input_l2($data)
 {
   filter_var($data, FILTER_SANITIZE_STRING);
+  sanitise_input($data);
   return $data;
 }
 function sanitise_input_l3($data)
 {
   filter_var($data, FILTER_SANITIZE_NUMBER_INT);
+  sanitise_input($data);
   return $data;
 }
 
