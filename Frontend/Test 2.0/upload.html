@@ -32,7 +32,7 @@
             <div></div>
             <div></div>
         </div>
-    </div>
+    </div>  
     <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
@@ -52,7 +52,7 @@
                 <a class="nav-link" href="index.html">Home
                   <span class="sr-only">(current)</span>
                 </a>
-              </li>
+              </li> 
               <li class="nav-item">
                 <a class="nav-link" href="about.html">About Us</a>
               </li>
@@ -84,53 +84,53 @@
         </div>
       </section>
     </div>
-
+    
     <!-- Banner Ends Here -->
 
 
     <section class="about-us">
       <div class="container">
-
+        
 		 <div class="row">
 			<div class="col-lg-12">
-				<form action="fuzzing.php" method="post" enctype="multipart/form-data">
-					<input type="text" id="appname" name="appname" placeholder="Application Name"><br><br>
+				<form action="fuzzing.php" method="POST" enctype="multipart/form-data">															
+					<input type="text" id="appname" name="appname" placeholder="Application Name"><br><br>					
 					<label for="jobtype">Job Type:</label><br>
-					Source Code &nbsp <input type="radio" id="jobtype" name="jobtype" value="1" required>
-					&nbsp Binary &nbsp <input type="radio" id="jobtype" name="jobtype" value="2">
+					Source Code &nbsp <input type="radio" id="source" name="jobtype" value="1" required>
+					&nbsp Binary &nbsp <input type="radio" id="binary" name="jobtype" value="1">
 					<br><br>
 					<label for="testingoptions">Fast Calculation:</label><br>
 						Yes &nbsp <input type="radio" id="fastcal" name="fastcal" value="1" required>
 					&nbsp No &nbsp <input type="radio" id="fastcal" name="fastcal" value="0"><br><br>
-					<select class="form-select mt-3" name="statsd" required>
+					<select class="form-select mt-3" required>
                                       <option selected disabled value="">AFL_STATSD_TAGS_FLAVOR</option>
                                       <option value="dogstatsd">dogstatsd</option>
                                       <option value="librato">librato</option>
                                       <option value="signalfx">signalfx</option>
 									  <option value="influxdb">influxdb</option>
                                </select><br><br>
-
+					
 					<div class="file-upload">
 					  <div class="file-select">
 						<div class="file-select-button" id="fileName">Choose Source Code or Binary File</div>
-						<div class="file-select-name" id="noFile">No file chosen...</div>
+						<div class="file-select-name" id="noFile">No file chosen...</div> 
 						<input type="file" name="chooseFile" id="chooseFile">
 					  </div>
-					</div>
-					<div class="file-upload">
-					   <div class="file-select">
-						<div class="file-select-button" id="fileName">Choose Test File (optional)</div>
-						<div class="file-select-name" id="noFile">No file chosen...</div>
-						<input type="file" name="chooseFile" id="chooseFile">
+					</div><br>
+					<div class="file-upload2">
+					   <div class="file-select2">
+						<div class="file-select-button2" id="fileName2">Choose Test File (optional)</div>
+						<div class="file-select-name2" id="noFile2">No file chosen...</div> 
+						<input type="file" name="chooseFile2" id="chooseFile2">
 					  </div>
 					</div><br><br>
-
+					
 					<input type="submit" value="Submit"/>
 					<input type= "reset" value="Reset"/>
-				</form>
+				</form> 
 			</div>
         </div><br><br>
-
+      
         <div class="row">
           <div class="col-lg-12">
             <ul class="social-icons">
@@ -141,12 +141,12 @@
             </ul>
           </div>
         </div>
-
-
+        
+        
       </div>
     </section>
 
-
+    
     <footer>
       <div class="container">
         <div class="row">
@@ -180,7 +180,7 @@
     <script src="assets/js/accordions.js"></script>
 	<script src="assets/js/upload.js"></script>
 
-    <script language = "text/Javascript">
+    <script language = "text/Javascript"> 
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
       function clearField(t){                   //declaring the array outside of the
       if(! cleared[t.id]){                      // function makes it static and global
@@ -200,7 +200,7 @@
       messagingSenderId: "790136710979",
       appId: "1:790136710979:web:1ac3789f5d8d038ca9f1f6"
     };
-
+    
       firebase.initializeApp(firebaseConfig);
       var user = firebase.auth().currentUser;
     </script>
