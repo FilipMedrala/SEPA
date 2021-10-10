@@ -78,6 +78,7 @@
     </div>
     <!-- Banner Ends Here -->
     <section class="about-us">
+<<<<<<< Updated upstream
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
@@ -121,6 +122,102 @@
               <input type= "reset" value="Reset"/>
             </form>
           </div>
+=======
+      <div class="container w-50">
+
+		 <div class="row justify-content-center">
+			<div class="col-lg-12 shadow">
+				<form action="fuzzing.php" method="POST" enctype="multipart/form-data">
+          <!--
+					<input type="text" id="appname" name="appname" placeholder="Application Name"><br><br>
+          -->
+          <input type="text" id="appname" class="form-control mt-3" name="appname" placeholder="Application Name"><br>
+<!--
+          <label for="jobtype">Job Type:</label>
+
+					Source Code &nbsp <input type="radio" id="source" name="jobtype" value="1" required>
+					&nbsp Binary &nbsp <input type="radio" id="binary" name="jobtype" value="2">
+					<br>
+        -->
+          <label>Job Type:</label>
+          <div class="form-check">
+            <input type="radio" id="radio-src" class="form-check-input" style="transform: scale(1.5);" name="jobtype" value="1" required>
+            <label class="form-check-label" for="radio-src">Source Code &nbsp &nbsp &nbsp &nbsp</label>
+            <input type="radio" id="radio-bin" class="form-check-input" style="transform: scale(1.5);" name="jobtype" value="2">
+            <label class="form-check-label" for="radio-bin">Binary File</label>
+          </div>
+
+          <br>
+          <!--
+					<label for="testingoptions">Fast Calculation:</label><br>
+						Yes &nbsp <input type="radio" id="fastcal" name="fastcal" value="1" required>
+					&nbsp No &nbsp <input type="radio" id="fastcal" name="fastcal" value="0"><br><br>
+        -->
+          <label>Fast Calculation:</label>
+          <div class="form-check">
+            <input type="radio" id="radio-fstcal-yes" class="form-check-input" style="transform: scale(1.5);" name="fastcal" value="1" required>
+            <label class="form-check-label" for="radio-fstcal-yes">Yes &nbsp &nbsp &nbsp &nbsp</label>
+            <input type="radio" id="radio-fstcal-no" class="form-check-input" style="transform: scale(1.5);" name="fastcal" value="0">
+            <label class="form-check-label" for="radio-fstcal-no">No</label>
+          </div>
+          <br>
+          <!--
+					<select class="form-select mt-3" name="statsd" required>
+                                      <option selected disabled value="">AFL_STATSD_TAGS_FLAVOR</option>
+                                      <option value="dogstatsd">dogstatsd</option>
+                                      <option value="librato">librato</option>
+                                      <option value="signalfx">signalfx</option>
+									  <option value="influxdb">influxdb</option>
+                               </select><br><br>
+                             -->
+          <select class="custom-select" name="statsd" required>
+            <option selected disabled value="">AFL_STATSD_TAGS_FLAVOR</option>
+            <option value="dogstatsd">dogstatsd</option>
+            <option value="librato">librato</option>
+            <option value="signalfx">signalfx</option>
+            <option value="influxdb">influxdb</option>
+          </select><br><br>
+          <!--
+					<select class="form-select mt-3" name="compiler" required>
+                                      <option selected disabled value="">Compiler</option>
+                                      <option value="lto">lto</option>
+                                      <option value="llvm">llvm</option>
+                                      <option value="gcc">gcc</option>
+
+                               </select><br><br>
+                             -->
+          <select class="custom-select" name="compiler" required>
+            <option selected disabled value="">Compiler</option>
+            <option value="lto">lto</option>
+            <option value="llvm">llvm</option>
+            <option value="gcc">gcc</option>
+          </select><br>
+          <div class="alert alert-warning" role="alert">When selecting your compiler, <strong>LTO</strong> mode may not work. Please check whether your codebase supports Link Time Optimisation before selecting this option for AFL instrumentation. Otherwise, use the <strong>LLVM</strong> or <strong>GCC</strong> option.</div>
+          <br><br>
+					<div class="file-upload">
+					  <div class="file-select">
+						<div class="file-select-button" id="fileName">Choose Source Code or Binary File</div>
+						<div class="file-select-name" id="noFile">No file chosen...</div>
+						<input type="file" name="chooseFile" id="chooseFile">
+					  </div>
+					</div><br>
+					<div class="file-upload2">
+					   <div class="file-select2">
+						<div class="file-select-button2" id="fileName2" >Choose Test File (optional)</div>
+						<div class="file-select-name2" id="noFile2">No file chosen...</div>
+						<input type="file" name="chooseFile2" id="chooseFile2">
+					  </div>
+					</div><br><br>
+
+          <button type="submit" class="btn btn-primary mr-3 mb-3" id="fuzzSubmit">Submit</button>
+          <button type="reset" class="btn btn-warning ml-3 mb-3" id="fuzzSubmit">Reset</button>
+          <!--
+					<input type="submit" value="Submit"/>
+					<input type= "reset" value="Reset"/>
+        -->
+				</form>
+    </div>
+>>>>>>> Stashed changes
         </div><br><br>
         <div class="row">
           <div class="col-lg-12">
