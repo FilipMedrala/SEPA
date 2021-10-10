@@ -15,7 +15,6 @@ function sanitise_input_l2($data)
   return $data;
 }
 
-
 ## Get Parameters
 $P1 = ($_POST['userid']);
 $P2 = ($_POST['jobid']);
