@@ -43,7 +43,7 @@ if (move_uploaded_file($_FILES["chooseFile"]["tmp_name"], $upload_file1)) {
 #  echo 'your filename is: ' . $filename;
 #  echo '<p>First binary uploaded successfully!</p>';
 #  echo 'website should work';
-  exec(/bin/bash /home/sepadmin/Documents/AFLscripts/startTheJobs.sh $P1 $P2 $P4 $P5 $P6 $filename1)
+#  exec(/bin/bash /home/sepadmin/Documents/AFLscripts/startTheJobs.sh $P1 $P2 $P4 $P5 $P6 $filename1)
 }
 else {
   $upload_is_ok = 0;
@@ -58,7 +58,7 @@ if (move_uploaded_file($_FILES["chooseFile2"]["tmp_name"], $upload_file2)) {
 #  echo 'your second filename is: ' . $filename;
 #  echo '<p>Second binary uploaded successfully!</p>';
 #  echo 'website should work';
-  exec(/bin/bash /home/sepadmin/Documents/AFLscripts/startTheJobs.sh $P1 $P2 $P4 $P5 $P6 $filename2)
+#  exec('/bin/bash /home/sepadmin/Documents/AFLscripts/startTheJobs.sh $P1 $P2 $P4 $P5 $P6 $filename2')
 }
 else {
   $upload_is_ok = 0;
