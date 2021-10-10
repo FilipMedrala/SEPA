@@ -109,7 +109,13 @@
                                       <option value="signalfx">signalfx</option>
 									  <option value="influxdb">influxdb</option>
                                </select><br><br>
-
+					<select class="form-select mt-3" name="compiler" required>
+                                      <option selected disabled value="">Compiler</option>
+                                      <option value="lto">lto</option>
+                                      <option value="llvm">llvm</option>
+                                      <option value="gcc">gcc</option>
+									  
+                               </select><br><br>
 					<div class="file-upload">
 					  <div class="file-select">
 						<div class="file-select-button" id="fileName">Choose Source Code or Binary File</div>
