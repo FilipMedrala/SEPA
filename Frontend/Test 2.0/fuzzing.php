@@ -80,7 +80,7 @@ else {
 
 if ($upload1_is_ok === 1 && $upload2_is_ok === 1) {
   ## Start fuzzing job
-  exec("/bin/bash /home/sepadmin/Documents/AFLscripts/startTheJobs.sh $P1 $P2 $P4 $P5 $P6 $filename2", );
+  exec("/bin/bash /home/sepadmin/Documents/AFLscripts/startTheJobs.sh $P1san $P2san $P3san $P4san $P5san $P6san $P7san $filename1 $filename2", );
 }
 else {
   echo "Failed to start the requested AFL job: $P2, as one or both of the file uploads weren't successful.";
