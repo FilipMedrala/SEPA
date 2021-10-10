@@ -1,10 +1,25 @@
 <?php
 #echo "Application name: " . ($_POST['appname']);
 
+## Input Sanitisation
+function sanitise_input($data)
+{
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+function sanitise_input_l2($data)
+{
+  filter_var($data, FILTER_SANITIZE_STRING);
+  return $data;
+}
+
+
 ## Get Parameters
 $P1 = ($_POST['userid']);
 $P2 = ($_POST['jobid']);
-$P3 = ($_POST['appname']);
+$P3 = sanitise_input(($_POST['appname']));
 $P4 = ($_POST['jobtype']);
 $P5 = ($_POST['fastcal']);
 $P6 = ($_POST['statsd']);
