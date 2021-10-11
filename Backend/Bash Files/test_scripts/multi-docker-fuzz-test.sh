@@ -21,3 +21,5 @@ else
 	docker run --name afl-$loop_count --network="host" -tid -v /home/sepadmin/Documents/p23-directories/afl:/src aflplusplus/aflplusplus
 	docker exec -d afl-$loop_count echo AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES=1 echo AFL_STATSD_TAGS_FLAVOR=dogstatsd echo AFL_STATSD=1 afl-fuzz -M fuzzer_$loop_count -i /src/afl_input -o /src/afl_output -- /src/binaries/fuzzgoat @@
 fi
+
+exit 0

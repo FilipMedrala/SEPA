@@ -29,4 +29,7 @@ then
 else
     echo "The options are either 1 or 0"
     echo "1 will start the test, 0 will stop it"
+    exit 1
 fi
+
+exit 0
