@@ -96,6 +96,11 @@ createDirStruct() {
 createDockerEnvFile() {
   /bin/bash createenvfile.sh $J_USRJOB_DIR $J_PARAMS_STATSD $J_PARAMS
 }
+## Run the 
+runDashContainers() {
+  echo "Starting Grafana, Prometheus and StasD via Docker..."
+  /bin/bash rundashcontainers.sh
+}
 ## Run the AFL job in a container via Docker
 runAflContainer() {
   echo "Starting AFL Job via Docker..."
@@ -131,4 +136,5 @@ fi
 ## Create the Docker environment file
 createDockerEnvFile
 ## Run the darn thing
+runDashContainers
 runAflContainer
