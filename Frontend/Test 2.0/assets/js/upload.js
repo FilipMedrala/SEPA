@@ -21,3 +21,13 @@ $('#chooseFile2').bind('change', function () {
     $("#noFile2").text(filename2.replace("C:\\fakepath\\", "")); 
   }
 });
+
+ $("#radio-src").click(function() {
+    $("#compiler").attr("disabled", false);
+    $("#compiler").show(); //To Show the dropdown
+});
+
+$("#radio-bin").click(function() {
+    $("#compiler").attr("disabled", true);
+    $("#compiler").hide();//To hide the dropdown
+});
