@@ -1,3 +1,9 @@
+<html>
+<head>
+  <link href="vendor/bootstrap-v5/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
 <?php
 #echo "Application name: " . ($_POST['appname']);
 
@@ -25,11 +31,23 @@ function sanitise_input_l3($data)
   return $data;
 }
 
+### Job ID Generation
+## Generate pseudo-random integer, we use 16 for length default
+function gen_random_id($length) {
+    $result = '';
+    for($i = 0; $i < $length; $i++) {
+        $result .= random_int(0, 15);
+    }
+    return $result;
+}
+
 ### Get Parameters
 ## leave uuid untouched, format included hyphen & digits, Will be fixed later
-## Raw Variable BLock
-$P1 = ($_POST['userid']);
-$P2 = ($_POST['jobid']);
+## Grab P1 & P2 from different sources non-POST
+## Raw Variable Block
+#$P1 = ($_POST['userid']);
+$P1 = ($_COOKIE['userID']);
+$P2 = gen_random_id(16);
 $P3 = ($_POST['appname']);
 $P4 = ($_POST['jobtype']);
 $P5 = ($_POST['fastcal']);
@@ -47,10 +65,12 @@ $P7san = sanitise_input_l2($P7);
 ### Debug Paramter
 ## View raw POST values in sent array
 #echo "<p>Variables dump: $P1san, $P2san, $P3san, $P4san, $P5san, $P6san, $P7san</p>";
+$svr_exec_is_ok = 0;
+$tmpout = '';
 
 ### Upload File Parameters
 ## Set temporary destination directory
-$upload_dir = "/var/www/html/aflfuzzerweb/files/uploadtmp/";
+$upload_dir = "/var/www/html/aflfuzzerweb/uploadtmp/";
 $upload_file1 = $upload_dir . basename($_FILES["chooseFile"]["name"]);
 $upload_file2 = $upload_dir . basename($_FILES["chooseFile2"]["name"]);
 ## Move uploaded files in field 1 to the temporary destination directory
@@ -89,12 +109,41 @@ if ($upload1_is_ok === 1 && $upload2_is_ok === 1) {
   ## Start fuzzing job via exec pointed to the bootstrapper script
 #  exec("/bin/bash /home/sepadmin/Documents/AFLscripts/startTheJobs.sh $P1san $P2san $P3san $P4san $P5san $P6san $P7san $filename1 $filename2", );
   ## Execute this script as another user to bypass some bash commands not working under www-data
-  exec("sudo su - sepadmin -c /home/sepadmin/Documents/AFLscripts/startTheJobs.sh $P1san $P2san $P3san $P4san $P5san $P6san $P7san $filename1 $filename2", );
+  exec("sudo su - sepadmin -c /home/sepadmin/Documents/AFLscripts/startTheJobs.sh $P1san $P2san $P3san $P4san $P5san $P6san $P7san $filename1 $filename2", $tmpout, $svr_exec_is_ok);
+  echo '<hr>
+  <div class="alert alert-success" role="alert">
+  <h4 class="alert-heading">Upload Successful!</h4>
+  <p>Your files were uploaded successfully and have been sent to further backend systems to start the job!</p>
+  <hr>
+  ';
+  echo "<h5>Debug:</h5>
+  <p>value 0 indicates failure, value 1 indicates success</p>
+  <p>FILE_1_UPLOAD_IS_OK: $upload1_is_ok</p>
+  <p>FILE_2_UPLOAD_IS_OK: $upload2_is_ok</p>
+  <p>SVR_TASK_EXEC_IS_OK: $server_is_ok</p>
+  </div>
+  ";
 }
 else {
   ## Display failure message
-  echo "Failed to start the requested AFL job: $P2, as one or both of the file uploads weren't successful.";
+  #echo "Failed to start the requested AFL job: $P2, as one or both of the file uploads weren't successful.";
+  ## Display failure message alternate version (Bootstrap Modal)
+  echo '<hr>
+  <div class="alert alert-danger" role="alert">
+  <h4 class="alert-heading">Upload Error!</h4>
+  <p>Failed to start the requested AFL job as one or both of the file uploads weren\'t successful.</p>
+  <hr>
+  ';
+  echo "<h5>Debug:</h5>
+  <p>value 0 indicates failure, value 1 indicates success</p>
+  <p>FILE_1_UPLOAD_IS_OK: $upload1_is_ok</p>
+  <p>FILE_2_UPLOAD_IS_OK: $upload2_is_ok</p>
+  <p>SVR_TASK_EXEC_IS_OK: $svr_exec_is_ok</p>
+  </div>
+  ";
 }
-
-
 ?>
+</div>
+<script src="vendor/bootstrap-v5/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
