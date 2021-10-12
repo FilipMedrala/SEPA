@@ -123,7 +123,7 @@
     									  <option value="influxdb">influxdb</option>
                                    </select><br><br>
                                  -->
-              <select class="custom-select" id="compiler" name="statsd" required disabled="disabled" >
+              <select class="custom-select" name="statsd" required >
                 <option selected disabled value="">AFL_STATSD_TAGS_FLAVOR</option>
                 <option value="dogstatsd">dogstatsd</option>
                 <option value="librato">librato</option>
@@ -139,13 +139,13 @@
 
                                    </select><br><br>
                              -->
-              <select class="custom-select" name="compiler" required>
+              <select class="custom-select" id="compiler" name="compiler" required disabled="disabled">
                 <option selected disabled value="">Compiler</option>
                 <option value="lto">lto</option>
                 <option value="llvm">llvm</option>
                 <option value="gcc">gcc</option>
               </select><br>
-              <div class="alert alert-warning" role="alert">When selecting your compiler, <strong>LTO</strong> mode may not work. Please check whether your codebase supports Link Time Optimisation before selecting this option for AFL instrumentation. Otherwise, use the <strong>LLVM</strong> or <strong>GCC</strong> option.</div>
+              <div class="alert alert-warning" role="alert">Compiler is only available for Source Code, When selecting your compiler, <strong>LTO</strong> mode may not work. Please check whether your codebase supports Link Time Optimisation before selecting this option for AFL instrumentation. Otherwise, use the <strong>LLVM</strong> or <strong>GCC</strong> option.</div>
               <br><br>
     					<div class="file-upload">
     					  <div class="file-select">
