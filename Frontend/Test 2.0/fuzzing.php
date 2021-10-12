@@ -1,3 +1,12 @@
+<?php
+### Really basic authentication
+## Redirect back to upload.html if the cookie is not set
+if (!isset($_COOKIE['userID']))
+{
+  header("Location: upload.html");
+  exit();
+}
+?>
 <html>
 <head>
   <link href="vendor/bootstrap-v5/css/bootstrap.min.css" rel="stylesheet">
@@ -32,11 +41,13 @@ function sanitise_input_l3($data)
 }
 
 ### Job ID Generation
-## Generate pseudo-random integer, we use 16 for length default
+## Generate pseudo-random integer, we use 12 for length default
+## Generator function is cryptographically secure on each platform, PHP will use the respective crypto API on each
+## Chance of collission is low
 function gen_random_id($length) {
     $result = '';
     for($i = 0; $i < $length; $i++) {
-        $result .= random_int(9, 19);
+        $result .= random_int(0, 11);
     }
     return $result;
 }
@@ -71,7 +82,8 @@ $P7san = sanitise_input_l2($P7);
 #echo "<p>Variables dump: $P1san, $P2san, $P3san, $P4san, $P5san, $P6san, $P7san</p>";
 echo '<hr>
 <div class="alert alert-info" role="alert">
-<h4 class="alert-heading">Variables Dump</h4>';
+<h4 class="alert-heading">Variables Dump</h4>
+<hr>';
 echo "<p>UUID: $P1san, JID: $P2san, APPNAME: $P3san, JOBTYPE: $P4san, FASTCAL: $P5san, STATSD: $P6san, COMPILER: $P7san</p>
 </div>";
 $svr_exec_is_ok = 0;
@@ -118,7 +130,7 @@ if ($upload1_is_ok === 1 && $upload2_is_ok === 1) {
   ## Start fuzzing job via exec pointed to the bootstrapper script
 #  exec("/bin/bash /home/sepadmin/Documents/AFLscripts/startTheJobs.sh $P1san $P2san $P3san $P4san $P5san $P6san $P7san $filename1 $filename2", );
   ## Execute this script as another user to bypass some bash commands not working under www-data
-  exec("sudo su - sepadmin -c /home/sepadmin/Documents/afl/scripts/startTheJobs.sh $P1san $P2san $P3san $P4san $P5san $P6san $P7san $filename1 $filename2", $tmpout, $svr_exec_is_ok);
+  exec("sudo su - sepadmin -c '/home/sepadmin/Documents/afl/scripts/startTheJobs.sh $P1san $P2san $P3san $P4san $P5san $P6san $P7san $filename1 $filename2' , $tmpout, $svr_exec_is_ok");
   echo '<hr>
   <div class="alert alert-success" role="alert">
   <h4 class="alert-heading">Upload Successful!</h4>
