@@ -31,3 +31,14 @@ $("#radio-bin").click(function() {
     $("#compiler").attr("disabled", true);
     $("#compiler").hide();//To hide the dropdown
 });
+
+$(document).ready(function() {
+   $('#file-reset').on('click', function() {     
+      $("#noFile").text("No file chosen...");
+	  $(".file-upload").removeClass('active');
+	  $("#noFile2").text("No file chosen...");
+	  $(".file-upload2").removeClass('active');
+	  $('#chooseFile').val('');
+	  $('#chooseFile2').val('');
+   });
+});
