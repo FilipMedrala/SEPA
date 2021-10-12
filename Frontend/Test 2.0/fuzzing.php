@@ -36,9 +36,13 @@ function sanitise_input_l3($data)
 function gen_random_id($length) {
     $result = '';
     for($i = 0; $i < $length; $i++) {
-        $result .= random_int(0, 15);
+        $result .= random_int(9, 19);
     }
     return $result;
+}
+function gen_random_id_alt() {
+  $result = random_int(000000000000, 999999999999);
+  return $result;
 }
 
 ### Get Parameters
@@ -47,7 +51,7 @@ function gen_random_id($length) {
 ## Raw Variable Block
 #$P1 = ($_POST['userid']);
 $P1 = ($_COOKIE['userID']);
-$P2 = gen_random_id(16);
+$P2 = gen_random_id_alt();
 $P3 = ($_POST['appname']);
 $P4 = ($_POST['jobtype']);
 $P5 = ($_POST['fastcal']);
@@ -65,6 +69,11 @@ $P7san = sanitise_input_l2($P7);
 ### Debug Paramter
 ## View raw POST values in sent array
 #echo "<p>Variables dump: $P1san, $P2san, $P3san, $P4san, $P5san, $P6san, $P7san</p>";
+echo '<hr>
+<div class="alert alert-info" role="alert">
+<h4 class="alert-heading">Variables Dump</h4>';
+echo "<p>UUID: $P1san, JID: $P2san, APPNAME: $P3san, JOBTYPE: $P4san, FASTCAL: $P5san, STATSD: $P6san, COMPILER: $P7san</p>
+</div>";
 $svr_exec_is_ok = 0;
 $tmpout = '';
 
@@ -109,7 +118,7 @@ if ($upload1_is_ok === 1 && $upload2_is_ok === 1) {
   ## Start fuzzing job via exec pointed to the bootstrapper script
 #  exec("/bin/bash /home/sepadmin/Documents/AFLscripts/startTheJobs.sh $P1san $P2san $P3san $P4san $P5san $P6san $P7san $filename1 $filename2", );
   ## Execute this script as another user to bypass some bash commands not working under www-data
-  exec("sudo su - sepadmin -c /home/sepadmin/Documents/AFLscripts/startTheJobs.sh $P1san $P2san $P3san $P4san $P5san $P6san $P7san $filename1 $filename2", $tmpout, $svr_exec_is_ok);
+  exec("sudo su - sepadmin -c /home/sepadmin/Documents/afl/scripts/startTheJobs.sh $P1san $P2san $P3san $P4san $P5san $P6san $P7san $filename1 $filename2", $tmpout, $svr_exec_is_ok);
   echo '<hr>
   <div class="alert alert-success" role="alert">
   <h4 class="alert-heading">Upload Successful!</h4>
