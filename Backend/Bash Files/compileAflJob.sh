@@ -2,7 +2,7 @@
 
 ## Exit codes
 # 0 = Successful
-# 1 =
+# 1 = Unused
 # 2 = Compiler variable check error
 # 3 = LTO compilation error
 # 4 = LLVM compilation error
@@ -19,13 +19,13 @@ JOB_TNAME=$3
 COMP_MODE=$4
 ## Enumerate job storage path
 ## Typically this will be the format of mainstoragedirectory/userid/jobid
-JOB_PATH="/opt/$JOB_UID/$JOB_JID"
+JOB_PATH="/home/sepadmin/Documents/afl/$JOB_UID/$JOB_JID"
 
 createJobPathDir() {
   ## Create src compilation directory
   ## Typically, this will be the same directory as the source code files are located and should already exist
   ## Nevertheless, check directory below anyways
-  mkdir -p "$JOB_PATH/$JOB_TNAME"
+  #mkdir -p "$JOB_PATH/$JOB_TNAME"
 }
 
 compileCommandStatus() {
@@ -51,7 +51,7 @@ compileSrcCodeLTO() {
   ## Use LTO mode
   #export CC=afl-clang-lto++
   ## Run make in silent mode
-  make -s CC=afl-clang-lto CXX=afl-clang-lto++ -C $JOB_PATH/$JOB_TNAME/
+  make -s CC=afl-clang-lto CXX=afl-clang-lto++ -C $JOB_PATH/afl_source
   ## Print command
   COMPILE_STATUS=$?
   COMPILE_FAIL_CODE=3
@@ -61,7 +61,7 @@ compileSrcCodeLLVM() {
   ## Use LLVM mode
   #export CC=afl-clang-fast CCX=afl-clang-fast++
   ## Run make in silent mode
-  make -s CC=afl-clang-fast CCX=afl-clang-fast++ -C $JOB_PATH/$JOB_TNAME/
+  make -s CC=afl-clang-fast CCX=afl-clang-fast++ -C $JOB_PATH/afl_source
   ## Print command
   COMPILE_STATUS=$?
   COMPILE_FAIL_CODE=4
@@ -71,7 +71,7 @@ compileSrcCodeGCC() {
   ## Use GCC_PLUGIN mode
   #export CC=afl-g++-fast
   ## Run make in silent mode
-  make -s CC=afl-gcc-fast CCX=afl-g++-fast -C $JOB_PATH/$JOB_TNAME/
+  make -s CC=afl-gcc-fast CCX=afl-g++-fast -C $JOB_PATH/afl_source
   ## Print command
   COMPILE_STATUS=$?
   COMPILE_FAIL_CODE=5
@@ -80,7 +80,7 @@ compileSrcCodeGCC() {
 
 ## Check provided compilation mode
 case $COMP_MODE in
-  LTO | LLVM | GCC_PLUGIN )
+  lto | llvm | gcc )
     echo "Compiler mode is valid!...proceeding to start compiler!"
     ;;
   * )
@@ -95,13 +95,13 @@ createJobPathDir
 echo "Compiling the source code for the application $JOB_TNAME with mode $COMP_MODE..."
 ## Showtime...
 case $COMP_MODE in
-  LTO )
+  lto )
     compileSrcCodeLTO
     ;;
-  LLVM )
+  llvm )
     compileSrcCodeLLVM
     ;;
-  GCC_PLUGIN )
+  gcc )
     compileSrcCodeGCC
     ;;
 esac

@@ -19,9 +19,12 @@ J_COMPILER=$7
 J_ZIP_NAME1=$8
 J_ZIP_NAME2=$9
 
+echo "$1 $2 $3 $4 $5 $6 $7 $8 $9"
+
 ## Variables that are static and should never change per job
 J_START_TIMESTAMP=$(date +%s)
-J_ROOT_DIR="/home/sepadmin/Documents/AFLFuzzer"
+J_ROOT_DIR="/home/sepadmin/Documents/afl"
+SCRIPTS_DIR="/home/sepadmin/Documents/afl/scripts"
 
 ## Variables that are initially static and change based on each job
 J_ZIP_ARC_LOC1="$J_ROOT_DIR/$J_UUID/$J_JID/afl_src_zips/$J_ZIP_NAME1"
@@ -48,6 +51,7 @@ unzipRecvArchive2() {
 }
 ## Delete Temporary Upload Archive
 delTmpRecvArchive1() {
+  echo $ZIP_ARC_LOC1
   rm $ZIP_ARC_LOC1
   LAUNCH_STATUS=$?
   LAUNCH_FAIL_CODE=3
@@ -69,7 +73,7 @@ runUnZipProcessFailCode() {
 }
 ## Compile the source code via AFL Instrumentation
 runAflCompileJType1() {
-  /bin/bash compileAflJob.sh $J_UUID $J_JID $J_APPNAME $J_COMPILER
+  /bin/bash $SCRIPTS_DIR/compileAflJob.sh $J_UUID $J_JID $J_APPNAME $J_COMPILER
   COMPILE_STATUS=$?
   if [[ $COMPILE_STATUS -ne 0 ]]
   then
@@ -79,40 +83,41 @@ runAflCompileJType1() {
 }
 ## Create the necessary directory structure
 createDirStruct() {
-  mkdir_dir="$J_ROOT_DIR/$J_UUID/$J_JID/{afl_in,afl_out,afl_source,afl_src_zips}"
+  mkdir_dir="$J_ROOT_DIR/$J_UUID/$J_JID/afl{_in,_out,_source,_src_zips}"
   chkdir1="$J_ROOT_DIR/$J_UUID/$J_JID/afl_in"
   chkdir2="$J_ROOT_DIR/$J_UUID/$J_JID/afl_out"
   chkdir3="$J_ROOT_DIR/$J_UUID/$J_JID/afl_source"
   chkdir4="$J_ROOT_DIR/$J_UUID/$J_JID/afl_src_zips"
   echo "Creating the required directories..."
-  mkdir -p $mkdir_dir
+  echo $mkdir_dir
+  eval mkdir -p $mkdir_dir
   echo "Checking whether the directories exist..."
-  [ -d "$chkdir1" ] && echo "Directory $chkdir1 exists!"
-  [ -d "$chkdir3" ] && echo "Directory $chkdir2 exists!"
-  [ -d "$chkdir3" ] && echo "Directory $chkdir3 exists!"
-  [ -d "$chkdir4" ] && echo "Directory $chkdir4 exists!"
+  [[ -d "$chkdir1" ]] && echo "Directory $chkdir1 exists!"
+  [[ -d "$chkdir3" ]] && echo "Directory $chkdir2 exists!"
+  [[ -d "$chkdir3" ]] && echo "Directory $chkdir3 exists!"
+  [[ -d "$chkdir4" ]] && echo "Directory $chkdir4 exists!"
 }
 ## Create the Docker environment file needed to run the container
 createDockerEnvFile() {
-  /bin/bash createenvfile.sh $J_USRJOB_DIR $J_PARAMS_STATSD $J_PARAMS
+  /bin/bash $SCRIPTS_DIR/createenvfile.sh $J_USRJOB_DIR $J_PARAMS_STATSD $J_PARAMS
 }
-## Run the 
+## Run the
 runDashContainers() {
   echo "Starting Grafana, Prometheus and StasD via Docker..."
-  /bin/bash rundashcontainers.sh
+  /bin/bash $SCRIPTS_DIR/rundashcontainers.sh
 }
 ## Run the AFL job in a container via Docker
 runAflContainer() {
   echo "Starting AFL Job via Docker..."
-  /bin/bash rundocker.sh $J_UUID $J_JID $J_TARGET
+  /bin/bash $SCRIPTS_DIR/rundocker.sh $J_UUID $J_JID $J_TARGET
 }
 ## Copy the test cases
 #copyTestCases() {
 #
 #}
 moveUploadedZipFromTemp() {
-  mv /var/www/html/aflfuzzerweb/files/uploadtmp/$J_ZIP_NAME1 $J_ZIP_ARC_LOC1
-  mv /var/www/html/aflfuzzerweb/files/uploadtmp/$J_ZIP_NAME2 $J_ZIP_ARC_LOC2
+  cp /var/www/html/aflfuzzerweb/uploadtmp/$J_ZIP_NAME1 $J_ZIP_ARC_LOC1
+  cp /var/www/html/aflfuzzerweb/uploadtmp/$J_ZIP_NAME2 $J_ZIP_ARC_LOC2
 }
 
 ### Script Execution Block
@@ -123,8 +128,8 @@ moveUploadedZipFromTemp
 ## Unzip the uploaded job, then delete the temporary files
 unzipRecvArchive1
 unzipRecvArchive2
-delTmpRecvArchive1
-delTmpRecvArchive2
+#delTmpRecvArchive1
+#delTmpRecvArchive2
 ## If the job is of type source code, compile it
 if [[ $J_TYPE == 1 ]]
 then
@@ -135,6 +140,6 @@ fi
 #copyTestCases
 ## Create the Docker environment file
 createDockerEnvFile
-## Run the darn thing
+## Run the AFL docker container
 runDashContainers
 runAflContainer
