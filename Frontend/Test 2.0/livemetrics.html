@@ -33,9 +33,9 @@
           <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="login.html">Login</a>
+            <ul class="navbar-nav ml-auto" id="list">
+              <li class="nav-item" style="display:none">
+                <a class="nav-link" href="login.php">Login</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="index.html">Home
@@ -45,14 +45,14 @@
               <li class="nav-item">
                 <a class="nav-link" href="about.html">About Us</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" style="display:none">
                 <a class="nav-link" href="dashboard.html">Dashboard</a>
               </li>
-              <li class="nav-item active">
+              <li class="nav-item active" style="display:none">
                 <a class="nav-link" href="livemetrics.html">Live Metrics</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="exit.html">Sign out</a>
+              <li class="nav-item" style="display:none">
+                <a class="nav-link" id="signOut" href="index.html">Sign out</a>
               </li>
             </ul>
           </div>
@@ -503,5 +503,8 @@
     }
     }
     </script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="assets/js/auth.js"></script>
   </body>
 </html>
