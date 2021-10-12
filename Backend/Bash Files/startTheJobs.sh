@@ -2,10 +2,11 @@
 
 ## Exit codes
 # 0 = Successful
-# 1 =
+# 1 = Unused
 # 2 = Error during unzip process
 # 3 = Error deleting uploaded archive
-# 4 = Error starting the docker instances
+# 4 = Source-code compilation error
+# 5 = Error starting the docker instances
 
 ### Variable block
 ## Variables that are pulled from the frontend per job
@@ -19,20 +20,19 @@ J_COMPILER=$7
 J_ZIP_NAME1=$8
 J_ZIP_NAME2=$9
 
-echo "$1 $2 $3 $4 $5 $6 $7 $8 $9"
+echo "Passed variables: $1 $2 $3 $4 $5 $6 $7 $8 $9"
 
 ## Variables that are static and should never change per job
 J_START_TIMESTAMP=$(date +%s)
 J_ROOT_DIR="/home/sepadmin/Documents/afl"
 SCRIPTS_DIR="/home/sepadmin/Documents/afl/scripts"
 
-## Variables that are initially static and change based on each job
+## Variables that are dynamic and change based on each job
 J_ZIP_ARC_LOC1="$J_ROOT_DIR/$J_UUID/$J_JID/afl_src_zips/$J_ZIP_NAME1"
 J_ZIP_ARC_LOC2="$J_ROOT_DIR/$J_UUID/$J_JID/afl_src_zips/$J_ZIP_NAME2"
 J_ZIP_DST_LOC1="$J_ROOT_DIR/$J_UUID/$J_JID/afl_source"
 J_ZIP_DST_LOC2="$J_ROOT_DIR/$J_UUID/$J_JID/afl_in"
 J_USRJOB_DIR="$J_ROOT_DIR/$J_UUID/$J_JID/"
-J_TARGET="$J_ROOT_DIR/$J_UUID/$J_JID/afl_source/$J_APPNAME"
 
 ### Functions block
 ### Stores the functions that are utilised within the script
@@ -51,7 +51,7 @@ unzipRecvArchive2() {
 }
 ## Delete Temporary Upload Archive
 delTmpRecvArchive1() {
-  echo $ZIP_ARC_LOC1
+  #echo $ZIP_ARC_LOC1
   rm $ZIP_ARC_LOC1
   LAUNCH_STATUS=$?
   LAUNCH_FAIL_CODE=3
@@ -78,7 +78,7 @@ runAflCompileJType1() {
   if [[ $COMPILE_STATUS -ne 0 ]]
   then
     echo "There was a error compiling the source-code of your application necessary for the AFL fuzzer!"
-    exit 3
+    exit 4
   fi
 }
 ## Create the necessary directory structure
@@ -99,37 +99,44 @@ createDirStruct() {
 }
 ## Create the Docker environment file needed to run the container
 createDockerEnvFile() {
+  echo "Creating the desired Docker environment file..."
   /bin/bash $SCRIPTS_DIR/createenvfile.sh $J_USRJOB_DIR $J_PARAMS_STATSD $J_PARAMS
 }
 ## Run the
 runDashContainers() {
-  echo "Starting Grafana, Prometheus and StasD via Docker..."
+  echo "Starting Grafana, Prometheus and StatsD via Docker..."
   /bin/bash $SCRIPTS_DIR/rundashcontainers.sh
 }
 ## Run the AFL job in a container via Docker
 runAflContainer() {
   echo "Starting AFL Job via Docker..."
-  /bin/bash $SCRIPTS_DIR/rundocker.sh $J_UUID $J_JID $J_TARGET
+  /bin/bash $SCRIPTS_DIR/rundocker.sh $J_UUID $J_JID $J_APPNAME
+  DOCKER_STATUS=$?
+  if [[ $DOCKER_STATUS -ne 0 ]]
+  then
+    echo "There was a error starting the AFL++ Docker container for the job afl-$J_JID!"
+    exit 5
+  fi
+
 }
 ## Copy the test cases
 #copyTestCases() {
 #
 #}
 moveUploadedZipFromTemp() {
-  cp /var/www/html/aflfuzzerweb/uploadtmp/$J_ZIP_NAME1 $J_ZIP_ARC_LOC1
-  cp /var/www/html/aflfuzzerweb/uploadtmp/$J_ZIP_NAME2 $J_ZIP_ARC_LOC2
+  cp /var/www/html/aflfuzzerweb/uploadtmp/$J_ZIP_NAME1 $J_ZIP_ARC_LOC1 && cp /var/www/html/aflfuzzerweb/uploadtmp/$J_ZIP_NAME2 $J_ZIP_ARC_LOC2
 }
 
 ### Script Execution Block
 ## Create the directory structure if it doesn't exist
 createDirStruct
-##
+## Copy the zip files from the temporary to working directory
 moveUploadedZipFromTemp
 ## Unzip the uploaded job, then delete the temporary files
 unzipRecvArchive1
 unzipRecvArchive2
-#delTmpRecvArchive1
-#delTmpRecvArchive2
+delTmpRecvArchive1
+delTmpRecvArchive2
 ## If the job is of type source code, compile it
 if [[ $J_TYPE == 1 ]]
 then
@@ -143,3 +150,5 @@ createDockerEnvFile
 ## Run the AFL docker container
 runDashContainers
 runAflContainer
+
+exit 0

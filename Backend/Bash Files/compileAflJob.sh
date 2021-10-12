@@ -21,12 +21,6 @@ COMP_MODE=$4
 ## Typically this will be the format of mainstoragedirectory/userid/jobid
 JOB_PATH="/home/sepadmin/Documents/afl/$JOB_UID/$JOB_JID"
 
-createJobPathDir() {
-  ## Create src compilation directory
-  ## Typically, this will be the same directory as the source code files are located and should already exist
-  ## Nevertheless, check directory below anyways
-  #mkdir -p "$JOB_PATH/$JOB_TNAME"
-}
 
 compileCommandStatus() {
 #case $COMPILE_FAIL_CODE in
@@ -71,7 +65,7 @@ compileSrcCodeGCC() {
   ## Use GCC_PLUGIN mode
   #export CC=afl-g++-fast
   ## Run make in silent mode
-  make -s CC=afl-gcc-fast CCX=afl-g++-fast -C $JOB_PATH/afl_source
+  make -s CC=afl-gcc CCX=afl-g++ -C $JOB_PATH/afl_source
   ## Print command
   COMPILE_STATUS=$?
   COMPILE_FAIL_CODE=5
