@@ -120,7 +120,7 @@ if ($upload1_is_ok === 1 && $upload2_is_ok === 1) {
   <p>value 0 indicates failure, value 1 indicates success</p>
   <p>FILE_1_UPLOAD_IS_OK: $upload1_is_ok</p>
   <p>FILE_2_UPLOAD_IS_OK: $upload2_is_ok</p>
-  <p>SVR_TASK_EXEC_IS_OK: $server_is_ok</p>
+  <p>SVR_TASK_EXEC_IS_OK: $svr_exec_is_ok</p>
   </div>
   ";
 }
