@@ -1,4 +1,3 @@
-
 var firebaseConfig = {
   apiKey: "AIzaSyDIR6Go8QoYic9psU4R_YRrfNp6e_HZQc4",
   authDomain: "test-62d52.firebaseapp.com",
@@ -13,6 +12,15 @@ firebase.initializeApp(firebaseConfig);
 
 // Constants
 const errorText = document.getElementsByClassName("errorText");
+
+var user = firebase.auth().currentUser;
+
+// If logged in, redirect to homepage
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+     window.location.href = "dashboard.html";
+  }
+});
 
 function signUpWithEmailPassword() {
   // Defines the sign up page error message box
@@ -110,15 +118,12 @@ function signUpWithEmailPassword() {
 
     // [START auth_signin_password]
     firebase.auth().signInWithEmailAndPassword(email, password)
-
       .then((userCredential) => {
         // Signed in
-
         var user = userCredential.user;
         document.cookie = "userID=" + user.uid;
-
         console.log(user);
-        window.location.href = "index.html";
+        window.location.href = "dashboard.html";
         // ...
       })
       .catch((error) => {
@@ -164,11 +169,20 @@ function sendPasswordResetEmail() {
   });
 }
 
-const forgotPasswordButton = document.getElementById("forgotPassword");
-forgotPasswordButton.addEventListener("click", sendPasswordResetEmail);
+const forgotPassword = document.getElementById("forgotPasswordForm");
+forgotPassword.addEventListener("submit", (e) => {
+  e.preventDefault();
+  sendPasswordResetEmail();
+});
 
-const signUpButton = document.getElementById("signUp");
-signUpButton.addEventListener("click", signUpWithEmailPassword);
+const signUp = document.getElementById("signUpForm");
+signUp.addEventListener("submit", (e) => {
+  e.preventDefault();
+  signUpWithEmailPassword();
+});
 
-const signInButton = document.getElementById("signIn");
-signInButton.addEventListener("click", signInWithEmailPassword);
+const signIn = document.getElementById("signInForm");
+signIn.addEventListener("submit", (e) => {
+  e.preventDefault();
+  signInWithEmailPassword();
+});
