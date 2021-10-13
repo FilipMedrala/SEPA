@@ -67,6 +67,7 @@
             <div class="col-lg-12">
               <div class="text-content">
                 <h4>How to use</h4>
+                <h2>More Information</h2>
               </div>
             </div>
           </div>
@@ -76,22 +77,36 @@
     <div class="container d-flex justify-content-evenly mt-auto">
       <div class = "howto" style = "padding-right: 50px">
         <p>Our AFL platform is designed for simplicity and ease of use.</p>
-        <p>Simply upload your file with the click of a button.</p>
         <img src="assets/images/Howto1.png" style="width: 50%; padding: 10px" alt="">
-        <p>And start Fuzzing</p>
+        <p>First choose your settings.</p>
+        <p>The default length of a session is </p>
+
         <img src="assets/images/Howto2.png" style="width: 50%; padding: 10px" alt="">
-        <p>You can monitor your progress from the User Dashboard.</p>
+        <p>And start Fuzzing</p>
+        <img src="assets/images/Howto3.png" style="width: 50%; padding: 10px" alt="">
+        <p>You can monitor your progress from the Live Metrics page.</p>
+        <img src="assets/images/Howto4.png" style="width: 50%; padding: 10px" alt="">
         <p>Previous jobs can be found on Job History page.</p>
       </div>
-      <div style="border-left: solid black">
-        <div class = "vertical-center" style = "padding-left: 50px">
+      <div>
+      <div id = "floating" class = "fixed">
+        <div class = "vertical-center" style = "padding-left: 40px">
           <a href="upload.php">
-            <img src="assets/shield-shaded.svg" style="width: 90%; padding-top: 100px"  alt="...">
+            <img src="assets/shield-shaded.svg" style="width: 80%; padding-top: 100px"  alt="...">
           </a>
-          <h3>Start Fuzzing</h3>
+          <h2>Start Fuzzing</h2>
+
         </div>
       </div>
     </div>
+  </div>
+    <style>
+    #floating.fixed {
+      position: -webkit-sticky; /* Safari */
+      position: sticky;
+      top: 15%;
+    }
+    </style>
     <footer>
       <div class="container">
         <div class="row">
@@ -112,6 +127,8 @@
         </div>
       </div>
     </footer>
+
+
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -134,5 +151,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="assets/js/auth.js"></script>
+
   </body>
 </html>
