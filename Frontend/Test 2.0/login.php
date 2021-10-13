@@ -1,3 +1,12 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>Login and Sign-up</title>
+</head>
+
+<body>
 <?php
 session_start();
 $_SESSION['dir'] = "C:/xampp";
@@ -26,15 +35,6 @@ else
 }
 ?>
 
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<link rel="stylesheet" href="style.css">
-<title>Login and Sign-up</title>
-</head>
-
-<body>
 <div class="container" id="container">
 	<div class="card" id="card">
 		<div id="sign-up-container" class="form-container">
