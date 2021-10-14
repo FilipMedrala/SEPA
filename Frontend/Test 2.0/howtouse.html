@@ -75,23 +75,25 @@
       </section>
     </div>
     <div class="container d-flex justify-content-evenly mt-auto">
-      <div class = "howto" style = "padding-right: 50px">
+      <div id = "explain" style = "padding-right: 40%">
         <p>Our AFL platform is designed for simplicity and ease of use.</p>
-        <img src="assets/images/Howto1.png" style="width: 50%; padding: 10px" alt="">
-        <p>First choose your settings.</p>
-        <p>The default length of a session is </p>
+        <img src="assets/images/Howto1.png"  alt="">
+        <p>First choose your settings.  Fast calculation will mean the fuzzer will make more mistakes on average, but will run significantly quicker.</p> <br>
+        <p>The selected tag will change how the results are presented on the live metrics page, but will not affact the fuzzing performance.</p>
 
-        <img src="assets/images/Howto2.png" style="width: 50%; padding: 10px" alt="">
+        <img src="assets/images/Howto2.png"  alt="">
         <p>And start Fuzzing</p>
-        <img src="assets/images/Howto3.png" style="width: 50%; padding: 10px" alt="">
+        <img src="assets/images/Howto3.png"  alt="">
         <p>You can monitor your progress from the Live Metrics page.</p>
-        <img src="assets/images/Howto4.png" style="width: 50%; padding: 10px" alt="">
+        <img src="assets/images/Howto4.png"  alt="">
+        <p>Each session will run to completion, exiting if it fails to find more results</p>
+
         <p>Previous jobs can be found on Job History page.</p>
       </div>
       <div>
       <div id = "floating" class = "fixed">
-        <div class = "vertical-center" style = "padding-left: 40px">
-          <a href="upload.php">
+        <div class = "vertical-center">
+          <a href="upload.html">
             <img src="assets/shield-shaded.svg" style="width: 80%; padding-top: 100px"  alt="...">
           </a>
           <h2>Start Fuzzing</h2>
@@ -106,6 +108,12 @@
       position: sticky;
       top: 15%;
     }
+     #explain img {
+      width: 100%;
+      padding: 10px 0px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19)
+    }
+
     </style>
     <footer>
       <div class="container">
