@@ -99,11 +99,6 @@
 
 <?php
 session_start();
-if(!isset($_COOKIE['userID'])) {
-  echo "Cookie named '" . 'userID' . "' is not set!";
-} else {
-  echo "Cookie '" . $_COOKIE['userID'] . "' is set!<br>";
-}
 
 
 require_once ("settings.php");
@@ -114,12 +109,11 @@ $pwd,
 $sql_db
 );
 if (!$conn) {
-  echo "mysql not connected ";
+  echo "Mysql not connected ";
   echo mysqli_connect_errno() . ":" . mysqli_connect_error();
   exit;
 }
 else {
-  echo "<p>Access granted.</p>";
 $dir = $_SESSION['dir'];
 $dirs = array_filter(glob('*'), 'is_dir');
 
@@ -157,7 +151,6 @@ for($i=0; $i < $count; $i++)
 
             </tr>
         <?php
-  echo '<p><br></p>';
 }
 }
 
