@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
   <title>AFL fuzzing platform - Job History</title>
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-v5/css/bootstrap.min.css" rel="stylesheet">
   <!-- Additional CSS Files -->
   <link rel="stylesheet" href="assets/css/fontawesome.css">
   <link rel="stylesheet" href="assets/css/style.css">
@@ -75,9 +75,12 @@
 </div>
 
 <div class="container">
-<p>Previous Items Fuzzed</p>
+  <br>
+<h5>Previous Items Fuzzed</h5>
+  <br>
 <div>
-<table>
+
+<table class="table table-bordered table-hover shadow-sm">
  <tr>
    <th>Job ID</th>
    <th>Date</th>
@@ -150,7 +153,7 @@ for($i=0; $i < $count; $i++)
 </div>
 </div>
 
-
+<!--
 <style>
 table {
   border-collapse: collapse;
@@ -171,7 +174,7 @@ tr:nth-child(even) {
   background-color: #D6EEEE;
 }
 </style>
-
+-->
 
 <footer>
   <div class="container">
@@ -198,7 +201,7 @@ tr:nth-child(even) {
 
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/bootstrap-v5/js/bootstrap.bundle.min.js"></script>
 
 <!-- JavaScript Files -->
 <script src="assets/js/custom.js"></script>

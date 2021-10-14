@@ -1092,9 +1092,11 @@ footer p a:hover {
 	}
 }
 
+/*
 table, th, td {
 border: 1px solid black;
 }
+*/
 
 #myProgress {
   width: 50%;
