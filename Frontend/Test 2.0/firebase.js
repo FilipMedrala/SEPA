@@ -27,13 +27,13 @@ function signUpWithEmailPassword() {
   var page = 0;
 
   // Get new user details
-  var displayName = document.getElementsByClassName("displayName")[page].value;
+  var userDisplayName = document.getElementsByClassName("displayName")[page].value;
   var email = document.getElementsByClassName("email")[page].value;
   var password = document.getElementsByClassName("password")[page].value;
 
   // [START auth_signup_password]
   // Throw an error if the display name is empty
-  if(displayName.length == 0) {
+  if(userDisplayName.length == 0) {
     errorText[page].innerHTML = "You must enter your name!";
     errorText[page].classList.add("error");
     focusError("displayName", page);
@@ -45,7 +45,7 @@ function signUpWithEmailPassword() {
       // Signed in and set Display Name
       var user = userCredential.user;
       user.updateProfile({
-        displayName: displayName
+        displayName: userDisplayName
       });
       // ...
     })
