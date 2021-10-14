@@ -45,6 +45,7 @@ else
 				<input class="password" type="password" placeholder="Password" />
 				<span class="errorText"></span>
 				<button id="signUp" type="submit">Sign Up</button>
+				<div id="loader"></div>
 				<a href="#" onclick="flip(this)" class="signInFlip">Already have an account? Sign in!</a>
 			</form>
 		</div>
@@ -54,7 +55,7 @@ else
 				<input class="email" type="email" placeholder="Email" />
 				<input class="password" type="password" placeholder="Password" />
 				<a href="#" style="margin-bottom: 0px;" onclick="flip(this)" id="forgotPasswordFlip">Forgot your password?</a>
-				<a href="#"style="margin-top: 7px" onclick="flip(this)" id="signUpFlip">Don't have an account? Sign up!</a>
+				<a href="#" style="margin-top: 7px" onclick="flip(this)" id="signUpFlip">Don't have an account? Sign up!</a>
 				<span class="errorText"></span>
 				<button id="signIn" type="submit">Sign In</button>
 			</form>

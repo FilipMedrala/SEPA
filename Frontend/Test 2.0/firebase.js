@@ -17,12 +17,15 @@ var user = firebase.auth().currentUser;
 
 // If logged in, redirect to homepage
 firebase.auth().onAuthStateChanged(user => {
-  if (user) {
+  if (user.displayName) {
      window.location.href = "dashboard.html";
   }
 });
 
 function signUpWithEmailPassword() {
+  document.getElementById("signUp").style.display = "none";
+  document.getElementById("loader").classList.add("loader");
+
   // Defines the sign up page error message box
   var page = 0;
 
@@ -37,6 +40,7 @@ function signUpWithEmailPassword() {
     errorText[page].innerHTML = "You must enter your name!";
     errorText[page].classList.add("error");
     focusError("displayName", page);
+    removeLoader();
     return;
   }
 
@@ -47,6 +51,9 @@ function signUpWithEmailPassword() {
       user.updateProfile({
         displayName: userDisplayName
       });
+      setTimeout(function(){
+        window.location.href = "dashboard.html";
+      }, 1000);
       // ...
     })
     .catch((error) => {
@@ -57,6 +64,7 @@ function signUpWithEmailPassword() {
 
       // Display error message
       errorMessages(page, errorCode);
+      removeLoader();
       // ..
     });
     // [END auth_signup_password]
@@ -92,6 +100,12 @@ function signUpWithEmailPassword() {
     }, 1000);
     element.focus();
     element.select();
+  }
+
+  // Remove the loader and replace the submit button if an error occurs
+  function removeLoader() {
+    document.getElementById("signUp").style.display = "inline-block";
+    document.getElementById("loader").classList.remove("loader");
   }
 
   function signInWithEmailPassword() {
