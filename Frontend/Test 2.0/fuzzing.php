@@ -69,7 +69,7 @@ $P5 = ($_POST['fastcal']);
 $P6 = ($_POST['statsd']);
 $P7 = ($_POST['compiler']);
 ## Sanitised Variable Block
-$P1san = $P1;
+$P1san = sanitise_input_l2($P1);
 $P2san = sanitise_input_l3($P2);
 $P3san = sanitise_input_l2($P3);
 $P4san = sanitise_input_l3($P4);
