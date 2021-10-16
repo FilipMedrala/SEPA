@@ -17,7 +17,7 @@ var user = firebase.auth().currentUser;
 
 // If logged in, redirect to homepage
 firebase.auth().onAuthStateChanged(user => {
-  if (user.displayName) {
+  if (user && user.displayName) {
      window.location.href = "dashboard.html";
   }
 });
@@ -85,6 +85,11 @@ function signUpWithEmailPassword() {
       errorText[page].innerHTML = "The email or password you have entered is incorrect, please try again!";
       focusError("password", page);
       focusError("email", page);
+    } else if(errorCode == "auth/invalid-action-code" || errorCode == "auth/expired-action-code") {
+      errorText[page].innerHTML = "This reset link is no longer valid, please request a new one";
+    } else if(errorCode == "unmatched-passwords") {
+      errorText[page].innerHTML = "Your passwords do not match!";
+      focusError("password", 1);
     } else {
       errorText[page].innerHTML = "Sorry, something went wrong! Please try again.";
     }
@@ -183,20 +188,70 @@ function sendPasswordResetEmail() {
   });
 }
 
+function resetPassword() {
+  var page = 0;
+  var url = window.location.href;
+  var code = url.slice(url.search("&oobCode") + 9, url.search("&apiKey"));
+
+  newPassword = document.getElementsByClassName("password")[0].value;
+  confirmPassword = document.getElementsByClassName("password")[1].value;
+  if (newPassword != confirmPassword) {
+    errorMessages(page, "unmatched-passwords")
+    return;
+  }
+
+  firebase.auth().confirmPasswordReset(code, newPassword)
+  .then(function() {
+    console.log("success!")
+    const card = document.getElementById('card');
+    card.classList.toggle("cardFlip");
+    // Success
+  })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(errorCode);
+    console.log(errorMessage);
+
+    // Through invalid reset code if user not found or disabled
+    if (errorCode == "auth/user-not-found" || errorCode == "auth/user-disabled") {
+      errorCode == "auth/invalid-action-code"
+    }
+    
+    errorMessages(page, errorCode);
+    // Invalid code
+  })
+}
+
 const forgotPassword = document.getElementById("forgotPasswordForm");
-forgotPassword.addEventListener("submit", (e) => {
-  e.preventDefault();
-  sendPasswordResetEmail();
-});
+if (typeof(forgotPassword) != 'undefined' && forgotPassword != null) {
+  forgotPassword.addEventListener("submit", (e) => {
+    e.preventDefault();
+    sendPasswordResetEmail();
+  });
+}
 
 const signUp = document.getElementById("signUpForm");
-signUp.addEventListener("submit", (e) => {
-  e.preventDefault();
-  signUpWithEmailPassword();
-});
+if (typeof(signUp) != 'undefined' && signUp != null) {
+  signUp.addEventListener("submit", (e) => {
+    e.preventDefault();
+    signUpWithEmailPassword();
+  });
+}
 
 const signIn = document.getElementById("signInForm");
-signIn.addEventListener("submit", (e) => {
-  e.preventDefault();
-  signInWithEmailPassword();
-});
+if (typeof(signIn) != 'undefined' && signIn != null) {
+  signIn.addEventListener("submit", (e) => {
+    e.preventDefault();
+    signInWithEmailPassword();
+  });
+}
+
+const resetPasswordForm = document.getElementById("resetForm");
+if (typeof(resetPasswordForm) != 'undefined' && resetPasswordForm != null)
+{
+  resetPasswordForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    resetPassword();
+  });
+}
