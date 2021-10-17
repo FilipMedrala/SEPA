@@ -1,5 +1,26 @@
 #!/bin/bash
 
+help()
+{
+   # Display Help
+   echo "Unzips the target zip to the destination directory."
+   echo
+   echo "Syntax: unZipAflJob.sh [-h|$.1|$.2]"
+   echo "options:"
+   echo "h     Print this Help."
+   echo "1     Source code zip target."
+   echo "2     Source code folder destination target."
+   echo
+}
+
+while getopts ":h" option; do
+   case $option in
+      h) # display Help
+         help
+         exit;;
+   esac
+done
+
 ## Exit codes
 # 0 = Successful
 # 1 =

@@ -1,5 +1,27 @@
 #!/bin/bash
 
+help()
+{
+   # Display Help
+   echo "Runs the AFL++ Fuzzing container with target directory."
+   echo
+   echo "Syntax: scriptTemplate [-g|h|v|V]"
+   echo "options:"
+   echo "g     Print the GPL license notification."
+   echo "h     Print this Help."
+   echo "v     Verbose mode."
+   echo "V     Print software version and exit."
+   echo
+}
+
+while getopts ":h" option; do
+   case $option in
+      h) # display Help
+         help
+         exit;;
+   esac
+done
+
 ## Exit codes
 # 0 = Successful
 # 1 = Path does not exist

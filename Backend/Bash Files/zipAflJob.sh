@@ -1,5 +1,27 @@
 #!/bin/bash
 
+help()
+{
+   # Display Help
+   echo "Zips the AFL Job's directory to a destination target."
+   echo
+   echo "Syntax: zipAflJob.sh [-h|$.1|$.2|$.3]"
+   echo "options:"
+   echo "h     Print this Help."
+   echo "1     Source directory to be zipped."
+   echo "2     Archive name."
+   echo "3     Compression mode [compatible, modern, experimental]."
+   echo
+}
+
+while getopts ":h" option; do
+   case $option in
+      h) # display Help
+         help
+         exit;;
+   esac
+done
+
 ## Takes input in this schema:
 ## ./zipAflJob.sh <source dir> <archive name> <compression mode>
 ## Example:

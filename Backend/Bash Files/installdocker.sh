@@ -1,4 +1,22 @@
 #!/bin/bash
+help()
+{
+   # Display Help
+   echo "Installs Docker and its pre-requisites."
+   echo
+   echo "Syntax: installdocker.sh [-h]"
+   echo "options:"
+   echo "h     Print this Help."
+   echo
+}
+
+while getopts ":h" option; do
+   case $option in
+      h) # display Help
+         help
+         exit;;
+   esac
+done
 
 ## Update packages and dependencies
 sudo apt update
@@ -22,3 +40,5 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose
 sudo usermod -aG docker ${USER}
 ## Give the current user the ability to run docker
 sudo chmod 666 /var/run/docker.sock
+
+exit 0

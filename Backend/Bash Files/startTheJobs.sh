@@ -1,5 +1,34 @@
 #!/bin/bash
 
+help()
+{
+   # Display Help
+   echo "The master script that populates the variables and triggers other scripts that AFL++ requires."
+   echo
+   echo "Syntax: startTheJobs.sh [-h|$.1|$.2|$.3|$.4|$.5|$.6|$.7|$.8|$.9]"
+   echo "options:"
+   echo "h     Print this Help."
+   echo "v     Verbose mode."
+   echo "1     Job Universal Unique IDentifier variable."
+   echo "2     Job IDentifier variable."
+   echo "3     Job Application name variable."
+   echo "4     Job compiler mode variable [GCC, LTO, LLVM]."
+   echo "5     Boolean whether or not Fast Calculation mode will be used."
+   echo "6     The type of StatsD graph that will be used."
+   echo "7     Job compiler mode variable [GCC, LTO, LLVM]"
+   echo "8     The target source code zip file name."
+   echo "9     The testing zip file name."
+   echo
+}
+
+while getopts ":h" option; do
+   case $option in
+      h) # display Help
+         help
+         exit;;
+   esac
+done
+
 ## Exit codes
 # 0 = Successful
 # 1 = Unused

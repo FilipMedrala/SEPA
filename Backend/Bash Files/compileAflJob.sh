@@ -1,4 +1,26 @@
 #!/bin/bash
+help()
+{
+   # Display Help
+   echo "Compiles source codes with either afl-gcc, afl-clang-fast, afl-clang-lto"
+   echo
+   echo "Syntax: compileAflJob.sh [-h|$.1|$.2|$.3|$.4]"
+   echo "options:"
+   echo "h     Print this Help."
+   echo "1     Job Universal Unique IDentifier variable."
+   echo "2     Job IDentifier variable."
+   echo "3     Job Application name variable."
+   echo "4     Job compiler mode variable [GCC, LTO, LLVM]."
+   echo
+}
+
+while getopts ":h" option; do
+   case $option in
+      h) # display Help
+         help
+         exit;;
+   esac
+done
 
 ## Exit codes
 # 0 = Successful

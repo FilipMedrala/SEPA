@@ -1,3 +1,4 @@
+# This docker-compose script creates three docker containers (Grafana, Prometheus and StatsD), the containers are required for the visualisation of the live statistics of a fuzzing application.
 version: '3'
 
 networks:
