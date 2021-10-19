@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/css/loginstyle.css">
 <link rel="icon" type="img/jpg" href="assets/images/afl.jpg">
 <title>Login and Sign-up</title>
 </head>
@@ -76,8 +76,8 @@ else
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
-<script src="firebase.js"></script>
-<script src=script.js></script>
+<script src="assets/js/firebase.js"></script>
+<script src="assets/js/loginscript.js"></script>
 
 </body>
 </html>

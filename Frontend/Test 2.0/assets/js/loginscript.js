@@ -1,4 +1,4 @@
-// JavaScript Document
+// Login page javaScript document
 
 // define constants
 const card = document.getElementById('card');
