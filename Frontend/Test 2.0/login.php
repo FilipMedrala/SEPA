@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="style.css">
+<link rel="icon" type="img/jpg" href="assets/images/afl.jpg">
 <title>Login and Sign-up</title>
 </head>
 
@@ -41,7 +42,7 @@ else
 			<form id="signUpForm">
 				<h1>Create Account</h1>
 				<br><input class="displayName" type="text" placeholder="Name" />
-				<input class="email" type="email" placeholder="Email" />
+				<input class="email" type="input" placeholder="Email" />
 				<input class="password" type="password" placeholder="Password" />
 				<span class="errorText"></span>
 				<button id="signUp" type="submit">Sign Up</button>

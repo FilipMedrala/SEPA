@@ -18,7 +18,7 @@ var user = firebase.auth().currentUser;
 // If logged in, redirect to homepage
 firebase.auth().onAuthStateChanged(user => {
   if (user && user.displayName) {
-     window.location.href = "dashboard.html";
+    window.location.href = "dashboard.html";
   }
 });
 
@@ -40,6 +40,12 @@ function signUpWithEmailPassword() {
     errorText[page].innerHTML = "You must enter your name!";
     errorText[page].classList.add("error");
     focusError("displayName", page);
+    removeLoader();
+    return;
+  }
+
+  if (!validatePassword(password)) {
+    errorMessages(page, "auth/weak-password");
     removeLoader();
     return;
   }
@@ -70,13 +76,20 @@ function signUpWithEmailPassword() {
     // [END auth_signup_password]
   }
 
+  function validatePassword(password) {
+    return (password.match(/[a-z]/g) && password.match(
+      /[A-Z]/g) && password.match(
+      /[0-9]/g) && password.match(
+      /[^a-zA-Z\d]/g) && password.length >= 8)
+      }
+
   // Error Messages
   function errorMessages(page, errorCode) {
     if(errorCode == "auth/email-already-in-use") {
       errorText[page].innerHTML = "An account with that email already exists!";
       focusError("email", page);
     } else if(errorCode == "auth/weak-password") {
-      errorText[page].innerHTML = "Your password is too weak!";
+      errorText[page].innerHTML = "Your password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character!";
       focusError("password", page);
     } else if(errorCode == "auth/invalid-email") {
       errorText[page].innerHTML = "You must enter a valid email!";
@@ -197,6 +210,11 @@ function resetPassword() {
   confirmPassword = document.getElementsByClassName("password")[1].value;
   if (newPassword != confirmPassword) {
     errorMessages(page, "unmatched-passwords")
+    return;
+  }
+
+  if (!validatePassword(newPassword)) {
+    errorMessages(page, "auth/weak-password");
     return;
   }
 
