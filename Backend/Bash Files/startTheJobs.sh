@@ -153,7 +153,7 @@ runAflContainer() {
 #
 #}
 moveUploadedZipFromTemp() {
-  cp /var/www/html/aflfuzzerweb/uploadtmp/$J_ZIP_NAME1 $J_ZIP_ARC_LOC1 && cp /var/www/html/aflfuzzerweb/uploadtmp/$J_ZIP_NAME2 $J_ZIP_ARC_LOC2
+  mv /var/www/html/aflfuzzerweb/uploadtmp/$J_ZIP_NAME1 $J_ZIP_ARC_LOC1 && mv /var/www/html/aflfuzzerweb/uploadtmp/$J_ZIP_NAME2 $J_ZIP_ARC_LOC2
 }
 
 ### Script Execution Block
@@ -164,8 +164,8 @@ moveUploadedZipFromTemp
 ## Unzip the uploaded job, then delete the temporary files
 unzipRecvArchive1
 unzipRecvArchive2
-delTmpRecvArchive1
-delTmpRecvArchive2
+# delTmpRecvArchive1
+# delTmpRecvArchive2
 ## If the job is of type source code, compile it
 if [[ $J_TYPE == 1 ]]
 then

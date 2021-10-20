@@ -106,7 +106,7 @@ case $COMP_MODE in
     ;;
 esac
 ## Create compilation directory
-createJobPathDir
+# createJobPathDir
 ## Print friendly message
 echo "Compiling the source code for the application $JOB_TNAME with mode $COMP_MODE..."
 ## Showtime...
