@@ -12,7 +12,7 @@ help()
    echo "1     Job Universal Unique IDentifier variable."
    echo "2     Job IDentifier variable."
    echo "3     Job Application name variable."
-   echo "4     Job compiler mode variable [GCC, LTO, LLVM]."
+   echo "4     Boolean whether target is source code or AFL compiled binary."
    echo "5     Boolean whether or not Fast Calculation mode will be used."
    echo "6     The type of StatsD graph that will be used."
    echo "7     Job compiler mode variable [GCC, LTO, LLVM]"

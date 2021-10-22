@@ -39,7 +39,7 @@ then
 	echo $jid
 	echo $target
 	docker run --name afl-$jid --network="host" -tid -v /home/sepadmin/Documents/afl/$uuid/$jid:/src --env-file /home/sepadmin/Documents/afl/$uuid/$jid/.env-afl aflplusplus/aflplusplus
-	echo "Executing docker exec -tid afl-$jid afl-fuzz -D -i /src/afl_in -o /src/afl_out -- /src/afl_source/$target @@"
+	echo "Executing docker exec -ti afl-$jid afl-fuzz -D -i /src/afl_in -o /src/afl_out -- /src/afl_source/$target @@"
 	docker exec -tid afl-$jid afl-fuzz -D -i /src/afl_in -o /src/afl_out -- /src/afl_source/$target @@
 else
 	echo "/home/sepadmin/Documents/afl/$uuid/$jid does not exist."
