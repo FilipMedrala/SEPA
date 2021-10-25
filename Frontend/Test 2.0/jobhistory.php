@@ -80,6 +80,7 @@
 <h5>Previous Items Fuzzed</h5>
   <br>
 <div>
+  <!-- Starts the table, then the php session -->
 
 <table class="table table-bordered table-hover shadow-sm">
 <thead>
@@ -125,10 +126,8 @@ $i=1;
         echo '<td>' . $row['File'] . '</td>';
         echo '<td>' . $row['Date'] . '</td>';
         $folder=$row['Adr'];
-	$folder2=preg_split("#/#", $folder); 
-#echo $folder2;
-#print_r($folder2);
-#echo $folder2[1] . " ";
+	$folder2=preg_split("#/#", $folder);
+
         $jobdir="/home/sepadmin/Documents/afl/$folder";
         exec("sudo su - root -c '/home/sepadmin/Documents/afl/scripts/zipAflJob.sh $jobdir final compatible' , , ");
         $pre2 = "/home/sepadmin/Documents/afl/$folder/final.zip";
@@ -154,7 +153,7 @@ else {
   }
   mysqli_close($conn);
 }
- 
+
 
 
 
@@ -165,12 +164,10 @@ else {
 </table>
 <?php
 if(isset($_POST['btnKillAllContainers'])) {
-#echo "lol";
 exec("sudo su - sepadmin -c 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)' , , ");
 }
 if(isset($_POST['btnKillAllNet'])) {
-#echo "lol";
-#exec("sudo su - sepadmin -c 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)' , , ");
+
 }
 ?>
 <!-- Button trigger modal -->
@@ -208,28 +205,7 @@ if(isset($_POST['btnKillAllNet'])) {
 </div>
 </div>
 
-<!--
-<style>
-table {
-  border-collapse: collapse;
-  width: 90%;
-  padding: 30px;
-}
 
-th, td {
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #D3D3D3;
-}
-
- tr:hover {
-  background-color: #D6EEEE;
-}
-</style>
--->
 
 <footer>
   <div class="container">
