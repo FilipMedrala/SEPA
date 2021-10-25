@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
   <title>AFL fuzzing platform - Job History</title>
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap-v5/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Additional CSS Files -->
   <link rel="stylesheet" href="assets/css/fontawesome.css">
   <link rel="stylesheet" href="assets/css/style.css">
@@ -82,11 +82,16 @@
 <div>
 
 <table class="table table-bordered table-hover shadow-sm">
+<thead>
  <tr>
+ <th>#</th>
    <th>Job ID</th>
    <th>Date</th>
    <th>Download</th>
+   <th>Actions</th>
  </tr>
+ </thead>
+ <tbody>
 
 <?php
 session_start();
@@ -104,53 +109,102 @@ if (!$conn) {
   exit;
 }
 else {
-$dir = $_SESSION['dir'];
-$dirs = array_filter(glob('*'), 'is_dir');
-
-$sql = "SELECT File, Date FROM files ORDER BY File";
+if(isset($_POST['btnStopJob'])) {
+#echo ($_POST['btnStopJob']);
+$pre3=($_POST['btnStopJob']);
+exec("sudo su - sepadmin -c 'docker stop afl-$pre3' , , ");
+exec("sudo su - sepadmin -c 'docker rm afl-$pre3' , , ");
+}
+$uid=($_COOKIE['userID']);
+$sql = "SELECT File, Date, Adr FROM files WHERE uID='$uid'";
 $query = mysqli_query($conn, $sql);
-$table_rows = array();
-if ($query) {
-  while ($row = $query -> fetch_row()) {
-  //  printf ("%s (%s)\n", $row[0], $row[1]);
-    $i = 0;
-    $table_rows[$i]['file'] = $row[0];
-    $table_rows[$i]['date'] = $row[1];
-    $i++;
+$i=1;
+  while ($row=mysqli_fetch_array($query)) {
+        echo '<tr>
+    <th scope="row">' . $i . '</th>';
+        echo '<td>' . $row['File'] . '</td>';
+        echo '<td>' . $row['Date'] . '</td>';
+        $folder=$row['Adr'];
+	$folder2=preg_split("#/#", $folder); 
+#echo $folder2;
+#print_r($folder2);
+#echo $folder2[1] . " ";
+        $jobdir="/home/sepadmin/Documents/afl/$folder";
+        exec("sudo su - root -c '/home/sepadmin/Documents/afl/scripts/zipAflJob.sh $jobdir final compatible' , , ");
+        $pre2 = "/home/sepadmin/Documents/afl/$folder/final.zip";
+    	exec("sudo su - root -c 'chown sepadmin $pre2' , , ");
+    	exec("sudo su - root -c 'chgrp sepadmin $pre2' , , ");
+    	$pre4=$folder2[1];
+        echo '<td><a href="http://localhost/aflfuzzerweb/afl/' . $folder . 'final.zip" Download> Download File </a></td>';
+
+        $stat1=exec("sudo su - sepadmin -c 'docker ps -aqf name=afl-$pre4' , , ");
+                if (empty($stat1)) {
+  $stat1="NOT RUNNING";
+          echo '<td>' . $stat1 . '</td>';
+        echo '<td><form method="post"><button type="submit" class="btn btn-warning" id="btnStopJob" name="btnStopJob" value=' . $folder2[1] . ' disabled>Stop Job</button></form></td>';
+        echo '</tr>';
+        $i++;
+}
+else {
+        echo '<td>' . $stat1 . '</td>';
+        echo '<td><form method="post"><button type="submit" class="btn btn-warning" id="btnStopJob" name="btnStopJob" value=' . $folder2[1] . '>Stop Job</button></form></td>';
+        echo '</tr>';
+        $i++;
   }
-  $count = $i;
-  $query -> free_result();
+  }
+  mysqli_close($conn);
 }
-$i = 0;
-foreach($dirs as $folder)
-{
-     $table_rows[$i]['download'] = $folder;
-
-
-    $i++;
-}
-
-for($i=0; $i < $count; $i++)
-{
-
-  ?>
-            <tr>
-              <td><?php echo $table_rows[$i]['file']?></td>
-              <td><?php echo $table_rows[$i]['date']?></td>
-              <td><?php echo  '<a href="$folder" Download> Download File </a>'?></td>
-
-            </tr>
-        <?php
-}
-}
+ 
 
 
 
 
 
  ?>
-
+</tbody>
 </table>
+<?php
+if(isset($_POST['btnKillAllContainers'])) {
+#echo "lol";
+exec("sudo su - sepadmin -c 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)' , , ");
+}
+if(isset($_POST['btnKillAllNet'])) {
+#echo "lol";
+#exec("sudo su - sepadmin -c 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)' , , ");
+}
+?>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Launch demo modal</button>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Executive Orders</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<h5>Order 66</h5>
+	<p>Identifies all Docker containers as traitors to the Galactic Republic. This will terminate them with no prejudice!</p>
+	<form method="post">
+	<button type="submit" class="btn btn-danger btn-sm" id="btnKillAllContainers" name="btnKillAllContainers">Execute</button>
+	</form>
+	<hr>
+	<h5>EMP</h5>
+	<p>Terminate all active docker networks</p>
+	<form method="post">
+	<button type="submit" class="btn btn-danger btn-sm" id="btnKillAllNet" name="btnKillAllNet" disabled>Execute</button>
+	</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 </div>
 
@@ -202,7 +256,7 @@ tr:nth-child(even) {
 
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap-v5/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- JavaScript Files -->
 <script src="assets/js/custom.js"></script>
