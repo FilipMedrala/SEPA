@@ -18,6 +18,8 @@ read -p $'Have you copied the web files to the server directory yet? If not, ple
 ## Create upload directory for temporary storage
 echo "Creating temporary upload directory..."
 mkdir -p /var/www/html/aflfuzzerweb/uploadtmp
+## Create symlinked afl directory
+sudo ln -s /home/sepadmin/Documents/afl /var/www/html/aflfuzzerweb
 ## Set permissions of the web server directory to allow authenticated upload
 echo "Setting permissions on web directories..."
 setWebPermDir
