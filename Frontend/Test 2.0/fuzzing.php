@@ -163,6 +163,26 @@ else {
   </div>
   ";
 }
+
+require_once ("settings.php");
+$conn = @mysqli_connect(
+$host,
+$user,
+$pwd,
+$sql_db
+);
+if (!$conn) {
+  echo "Mysql not connected ";
+  echo mysqli_connect_errno() . ":" . mysqli_connect_error();
+  exit;
+}
+else {
+  $uid=($_COOKIE['userID']);
+  $path="$uid/$p3san";
+  $sql = "INSERT INTO files (uID, File, Adr) VALUES ('$uid', '$P3san', '$path')";
+  $query = mysqli_query($conn, $sql);
+}
+
 ?>
 </div>
 <script src="vendor/bootstrap-v5/js/bootstrap.bundle.min.js"></script>
