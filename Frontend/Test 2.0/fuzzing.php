@@ -182,6 +182,7 @@ else {
   $sql = "INSERT INTO files (uID, File, Adr) VALUES ('$uid', '$P3san', '$path')";
   $query = mysqli_query($conn, $sql);
 }
+mysqli_close($conn)
 
 ?>
 </div>
