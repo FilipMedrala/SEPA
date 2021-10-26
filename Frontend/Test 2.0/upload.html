@@ -84,16 +84,7 @@
         <div class="row justify-content-center">
           <div class="col-lg-12 shadow">
             <form action="fuzzing.php" method="POST" enctype="multipart/form-data">
-              <!--
-					    <input type="text" id="appname" name="appname" placeholder="Application Name"><br><br>
-              -->
               <input type="text" id="appname" class="form-control mt-3" name="appname" placeholder="Application Name" required><br>
-              <!--
-              <label for="jobtype">Job Type:</label>
-					    Source Code &nbsp <input type="radio" id="source" name="jobtype" value="1" required>
-					    &nbsp Binary &nbsp <input type="radio" id="binary" name="jobtype" value="2">
-					    <br>
-              -->
               <label>Job Type:</label>
               <div class="form-check">
                 <input type="radio" id="radio-src" class="form-check-input" style="transform: scale(1.5);" name="jobtype" value="1" required>
@@ -102,11 +93,6 @@
                 <label class="form-check-label" for="radio-bin">Binary File</label>
               </div>
               <br>
-              <!--
-    					<label for="testingoptions">Fast Calculation:</label><br>
-    						Yes &nbsp <input type="radio" id="fastcal" name="fastcal" value="1" required>
-    					&nbsp No &nbsp <input type="radio" id="fastcal" name="fastcal" value="0"><br><br>
-            -->
               <label>Fast Calculation:</label>
               <div class="form-check">
                 <input type="radio" id="radio-fstcal-yes" class="form-check-input" style="transform: scale(1.5);" name="fastcal" value="1" required>
@@ -115,15 +101,6 @@
                 <label class="form-check-label" for="radio-fstcal-no">No</label>
               </div>
               <br>
-              <!--
-    					<select class="form-select mt-3" name="statsd" required>
-                                          <option selected disabled value="">AFL_STATSD_TAGS_FLAVOR</option>
-                                          <option value="dogstatsd">dogstatsd</option>
-                                          <option value="librato">librato</option>
-                                          <option value="signalfx">signalfx</option>
-    									  <option value="influxdb">influxdb</option>
-                                   </select><br><br>
-                                 -->
               <select class="custom-select" name="statsd" required >
                 <option selected disabled value="">AFL_STATSD_TAGS_FLAVOR</option>
                 <option value="dogstatsd">dogstatsd</option>
@@ -131,15 +108,6 @@
                 <option value="signalfx">signalfx</option>
                 <option value="influxdb">influxdb</option>
               </select><br><br>
-              <!--
-    					<select class="form-select mt-3" name="compiler" required>
-                                          <option selected disabled value="">Compiler</option>
-                                          <option value="lto">lto</option>
-                                          <option value="llvm">llvm</option>
-                                          <option value="gcc">gcc</option>
-
-                                   </select><br><br>
-                             -->
               <select class="custom-select" id="compiler" name="compiler" required disabled="disabled">
                 <option selected disabled value="">Compiler</option>
                 <option value="lto">lto</option>
