@@ -1,7 +1,7 @@
 # Setting up Firebase
 The user management system is handled entirely through Firebase Authentication. To set up your own, the only requirement is a personal Gmail account. 
 
-## Creating an account and your 
+## Creating an account and user database
 
  1. Navigate to https://firebase.google.com/.
  2. Click 'Get Started'.
