@@ -86,13 +86,17 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <h4>Xiaogang Zhu</h4>
-            <p>Information about Xiaogang Zhu</p>
+          <div class="col-lg-4 col-md-6">
+            <h4>Our Team</h4>
+            <p>Information about us.</p>
           </div>
-          <div class="col-md-6">
-            <h4>Xiaotao Feng</h4>
-            <p>Information about Xiaotao Feng</p>
+          <div class="col-lg-4 col-md-6">
+            <h4>Client 1</h4>
+            <p>Information about client one.</p>
+          </div>
+          <div class="col-lg-4">
+            <h4>Client 2</h4>
+            <p>Information about client two.</p>
           </div>
         </div>
         <div class="row">
@@ -136,9 +140,18 @@
     <script src="assets/js/slick.js"></script>
     <script src="assets/js/isotope.js"></script>
     <script src="assets/js/accordions.js"></script>
-    <!-- Firebase Authentication JavaScript -->
+    <script language = "text/Javascript">
+    cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+    function clearField(t){                   //declaring the array outside of the
+    if(! cleared[t.id]){                      // function makes it static and global
+    cleared[t.id] = 1;  // you could use true and false, but that's more typing
+    t.value='';         // with more chance of typos
+    t.style.color='#fff';
+    }
+    }
+    </script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="assets/js/firebase.js"></script>
+    <script src="assets/js/auth.js"></script>
   </body>
 </html>
