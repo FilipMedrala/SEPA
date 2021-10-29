@@ -286,19 +286,17 @@ firebase.auth().onAuthStateChanged(user => {
     }
   // Else, alter the nav bar links depending on login status
   } else {
+    var list = document.getElementById("list");
     if (user) {
-      var list = document.getElementById("list");
       var hello = document.getElementById("hello")
       if (hello) {
           hello.innerHTML = "Hello " + user.displayName;
       }
-      // If user logged in, add user options in nav bar
+      // If user logged in, add user options in nav bar and remove sign in
       list.children[3].style.display = "flex";
       list.children[4].style.display = "flex";
       list.children[5].style.display = "flex";
-    } else {
-        // If user not signed in, add login option 
-        list.children[0].style.display = "flex";
-    }
+      list.children[0].style.display = "none";
+    } 
   }
 });

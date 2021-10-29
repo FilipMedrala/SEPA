@@ -72,11 +72,13 @@ else
 		</div>
 	</div>
 </div>
-
+    
+<!-- Firebase Authentication JavaScript -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-
 <script src="assets/js/firebase.js"></script>
+
+<!-- Container flip Javascript -->
 <script src="assets/js/loginscript.js"></script>
 
 </body>
