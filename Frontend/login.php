@@ -10,21 +10,29 @@
 <body>
 <?php
 session_start();
-$_SESSION["dir"] = "C:/xampp";
-require_once "settings.php";
-$conn = @mysqli_connect($host, $user, $pwd, $sql_db);
-if (!$conn) {
-    echo "mysql not connected ";
-    echo mysqli_connect_errno() . ":" . mysqli_connect_error();
-    exit();
-} else {
-    $sql = "CREATE TABLE IF NOT EXISTS files (
+$_SESSION['dir'] = "C:/xampp";
+require_once ("settings.php");
+$conn = @mysqli_connect(
+$host,
+$user,
+$pwd,
+$sql_db
+);
+if (!$conn)
+{
+  echo "mysql not connected ";
+  echo mysqli_connect_errno() . ":" . mysqli_connect_error();
+  exit;
+}
+else
+{
+  $sql = "CREATE TABLE IF NOT EXISTS files (
     uID VARCHAR(50)  NOT NULL,
     Date CHAR(10) NOT NULL,
     Adr VARCHAR(50) NOT NULL,
     File VARCHAR(50) NOT NULL
   )";
-    $query = mysqli_query($conn, $sql);
+  $query = mysqli_query($conn, $sql);
 }
 ?>
 
@@ -64,11 +72,13 @@ if (!$conn) {
 		</div>
 	</div>
 </div>
-
+    
+<!-- Firebase Authentication JavaScript -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-
 <script src="assets/js/firebase.js"></script>
+
+<!-- Container flip Javascript -->
 <script src="assets/js/loginscript.js"></script>
 
 </body>

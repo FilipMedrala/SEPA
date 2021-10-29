@@ -155,20 +155,16 @@ else {
 }
 
 
-
-
-
-
  ?>
 </tbody>
 </table>
 <?php
-if(isset($_POST['btnKillAllContainers'])) {
-exec("sudo su - sepadmin -c 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)' , , ");
-}
-if(isset($_POST['btnKillAllNet'])) {
+  if(isset($_POST['btnKillAllContainers'])) {
+    exec("sudo su - sepadmin -c 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)' , , ");
+  }
+  if(isset($_POST['btnKillAllNet'])) {
 
-}
+  }
 ?>
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" style="display: none" data-toggle="modal" data-target="#exampleModalCenter">Backend Commands</button>
@@ -184,16 +180,16 @@ if(isset($_POST['btnKillAllNet'])) {
       </div>
       <div class="modal-body">
       	<h5>Order 66</h5>
-	<p>Identifies all Docker containers as traitors to the Galactic Republic. This will terminate them with no prejudice!</p>
-	<form method="post">
-	<button type="submit" class="btn btn-danger btn-sm" id="btnKillAllContainers" name="btnKillAllContainers">Execute</button>
-	</form>
-	<hr>
-	<h5>EMP</h5>
-	<p>Terminate all active docker networks</p>
-	<form method="post">
-	<button type="submit" class="btn btn-danger btn-sm" id="btnKillAllNet" name="btnKillAllNet" disabled>Execute</button>
-	</form>
+	        <p>Identifies all Docker containers as traitors to the Galactic Republic. This will terminate them with no prejudice!</p>
+	         <form method="post">
+	            <button type="submit" class="btn btn-danger btn-sm" id="btnKillAllContainers" name="btnKillAllContainers">Execute</button>
+	         </form>
+	          <hr>
+	           <h5>EMP</h5>
+	           <p>Terminate all active docker networks</p>
+	            <form method="post">
+	              <button type="submit" class="btn btn-danger btn-sm" id="btnKillAllNet" name="btnKillAllNet" disabled>Execute</button>
+	            </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -251,8 +247,9 @@ if(isset($_POST['btnKillAllNet'])) {
       }
   }
   </script>
+    <!-- Firebase Authentication JavaScript -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/firebase.js"></script>
 </body>
 </html>
