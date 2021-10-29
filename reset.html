@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="img/jpg" href="assets/images/afl.jpg">
+  <title>Reset Password</title>
+</head>
+
+
+<body>
+  <div class="container" id="container">
+    <div class="card" id="card">
+      <div id="sign-in-container" class="form-container">
+        <form id="resetForm">
+          <h1>Reset Password</h1>
+          <input class="password" type="password" placeholder="New Password" />
+          <input class="password" type="password" placeholder="Confirm Password" />
+          <span class="errorText"></span>
+          <button style="margin-top: 7px" id="reset" type="submit">Reset</button>
+        </form>
+      </div>
+      <div id="sign-up-container" class="form-container">
+        <form action="login.php">
+          <h1>Password Reset</h1>
+          <p>Your password has been successfully reset</p>
+          <button style="margin-top: 7px" type="submit">Sign In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="assets/js/firebase.js"></script>
+
+</html>
