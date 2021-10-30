@@ -1,0 +1,74 @@
+# This docker-compose script creates three docker containers (Grafana, Prometheus and StatsD), the containers are required for the visualisation of the live statistics of a fuzzing application.
+version: '3'
+
+networks:
+  statsd-net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.18.0.1/16
+    
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/prometheus.yml
+    command:
+      - '--config.file=/prometheus.yml'
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    networks:
+      statsd-net:
+        ipv4_address: 172.18.0.2
+
+  statsd_exporter:
+    image: prom/statsd-exporter
+    container_name: statsd_exporter
+    volumes:
+      - ./statsd_mapping.yml:/statsd_mapping.yml
+    command:
+      - "--statsd.mapping-config=/statsd_mapping.yml"
+    ports:
+      - "9102:9102/tcp"
+      - "8125:9125/udp"
+    networks:
+      statsd-net:
+        ipv4_address: 172.18.0.3
+  
+  grafana:
+    image: grafana/grafana:main-ubuntu
+    container_name: grafana
+    environment:
+      #- GF_SECURITY_ADMIN_USER=sepadmin
+      #- GF_SECURITY_ADMIN_PASSWORD=Fuzz#23
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_USERS_AUTO_ASSIGN_ORG=true
+      - GF_USERS_AUTO_ASSIGN_ORG_ROLE=Viewer
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_NAME=Main Org.
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_AUTH_ANONYMOUS_HIDE_VERSION=true
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/afl.json
+    volumes:
+      - /etc/grafana/provisioning:/etc/grafana/provisioning
+    restart: unless-stopped
+    ports:
+        - "3000:3000"
+    networks:
+      statsd-net:
+        ipv4_address: 172.18.0.4
+    depends_on: [prometheus,statsd_exporter]
+    
+  # aflplusplus:
+  #   image: aflplusplus/aflplusplus
+  #   container_name: "afl"
+  #   restart: on-failure
+  #   volumes:
+  #     - /home/sepadmin/Documents/p23-directories/afl:/src
+  #   networks:
+  #     - statsd-net
+  #   stdin_open: true
+  #   tty: true

@@ -1,0 +1,53 @@
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults	env_reset
+Defaults	mail_badpass
+Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+
+# Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+Cmnd_Alias	FUZZER1 =	/usr/bin/sudo su - sepadmin -c*
+Cmnd_Alias	FUZZER2 =	/usr/bin/su - sepadmin -c*
+Cmnd_Alias	FUZZER3 =	/usr/bin/sudo su - root -c /home/sepadmin/Documents/afl/scripts/zipAflJob.sh*
+Cmnd_Alias	FUZZER4 =	/usr/bin/su - root -c /home/sepadmin/Documents/afl/scripts/zipAflJob.sh*
+Cmnd_Alias	FUZZER6 =	/usr/bin/sudo su - root -c chown sepadmin*
+Cmnd_Alias	FUZZER7 =	/usr/bin/su - root -c chown sepadmin*
+Cmnd_Alias	FUZZER8 =	/usr/bin/sudo su - root -c chgrp sepadmin*
+Cmnd_Alias	FUZZER9 =	/usr/bin/su - root -c chgrp sepadmin*
+Cmnd_Alias	FUZZER10 =	/usr/bin/sudo su - root -c afl-collect*
+Cmnd_Alias	FUZZER11 =	/usr/bin/su - root -c afl-collect*
+Cmnd_Alias	FUZZER12 =	/usr/local/bin/afl-collect*
+
+# User privilege specification
+root	ALL=(ALL:ALL) ALL
+
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
+
+# Allow members of group sudo to execute any command
+%sudo	ALL=(ALL:ALL) ALL
+
+# See sudoers(5) for more information on "#include" directives:
+
+#includedir /etc/sudoers.d
+
+www-data        ALL=(ALL:ALL)   NOPASSWD:       FUZZER1
+www-data        ALL=(ALL:ALL)   NOPASSWD:       FUZZER2
+www-data        ALL=(ALL:ALL)   NOPASSWD:       FUZZER3
+www-data        ALL=(ALL:ALL)   NOPASSWD:       FUZZER4
+www-data        ALL=(ALL:ALL)   NOPASSWD:       FUZZER6
+www-data        ALL=(ALL:ALL)   NOPASSWD:       FUZZER7
+www-data        ALL=(ALL:ALL)   NOPASSWD:       FUZZER8
+www-data        ALL=(ALL:ALL)   NOPASSWD:       FUZZER9
+www-data        ALL=(ALL:ALL)   NOPASSWD:       FUZZER10
+www-data        ALL=(ALL:ALL)   NOPASSWD:       FUZZER11
+www-data        ALL=(ALL:ALL)   NOPASSWD:       FUZZER12
