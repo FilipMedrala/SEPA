@@ -1,8 +1,8 @@
 # SEP Project #23 - Backend README
 
-Current version: Final git ver.
-Project topic: Online vulnerability detection platform based on fuzzing
-Project group number: 23
+Current version: Final git ver.  
+Project topic: Online vulnerability detection platform based on fuzzing  
+Project group number: 23  
 
 # Description
 
