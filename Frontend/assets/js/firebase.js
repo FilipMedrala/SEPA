@@ -299,7 +299,8 @@ firebase.auth().onAuthStateChanged(user => {
       list.children[3].style.display = "flex";
       list.children[4].style.display = "flex";
       list.children[5].style.display = "flex";
-      list.children[0].style.display = "none";
-    } 
+    } else {
+      list.children[0].style.display = "flex";
+    }
   }
 });
