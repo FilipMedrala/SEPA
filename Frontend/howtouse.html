@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Group 23">
+    <link rel="icon" type="img/jpg" href="assets/images/afl.jpg">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
+    <title>AFL fuzzing platform - How To Use</title>
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+  </head>
+  <!-- ***** Preloader Start ***** -->
+  <div id="preloader">
+    <div class="jumper">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+  <body>
+    <!-- Header -->
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="index.html"><h2>Fuzzing platform<em>.</em></h2></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto" id="list">
+              <li class="nav-item" style="display:none">
+                <a class="nav-link" href="login.php">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About Us</a>
+              </li>
+              <li class="nav-item active" style="display:none">
+                <a class="nav-link" href="dashboard.html">Dashboard</a>
+              </li>
+              <li class="nav-item" style="display:none">
+                <a class="nav-link" href="livemetrics.html">Live Metrics</a>
+              </li>
+              <li class="nav-item" style="display:none">
+                <a class="nav-link" id="signOut" href="index.html">Sign out</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- Banner Starts Here -->
+    <div class="heading-page header-text">
+      <section class="page-heading">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="text-content">
+                <h4>How to use</h4>
+                <h2>More Information</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- Displays instructions with images -->
+
+    <div class="container d-flex justify-content-evenly mt-auto">
+      <div id = "explain" style = "padding-right: 40%">
+        <p>Our AFL platform is designed for simplicity and ease of use.</p>
+        <img src="assets/images/Howto1.png"  alt="">
+        <p>First choose your settings.  Fast calculation will mean the fuzzer will make more mistakes on average, but will run significantly quicker.</p> <br>
+        <p>The selected tag will change how the results are presented on the live metrics page, but will not affact the fuzzing performance.</p>
+
+        <img src="assets/images/Howto2.png"  alt="">
+        <p>And start Fuzzing</p>
+        <img src="assets/images/Howto3.png"  alt="">
+        <p>You can monitor your progress from the Live Metrics page.</p>
+        <img src="assets/images/Howto4.png"  alt="">
+        <p>Each session will run to completion, exiting if it fails to find more results</p>
+
+        <p>Previous jobs can be found on Job History page.</p>
+      </div>
+      <div>
+      <div id = "floating" class = "fixed">
+        <div class = "vertical-center">
+          <a href="upload.html">
+            <img src="assets/shield-shaded.svg" style="width: 80%; padding-top: 100px"  alt="...">
+          </a>
+          <h2>Start Fuzzing</h2>
+        </div>
+      </div>
+      </div>
+    </div>
+    <!-- Styles the Images and paragraphs -->
+
+    <style>
+    #floating.fixed {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 15%;
+    }
+     #explain img {
+      width: 100%;
+      padding: 10px 0px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19)
+    }
+    #explain p {
+     padding: 5px 0px;
+   }
+
+    </style>
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <ul class="social-icons">
+              <li><a href="#">Facebook</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">Behance</a></li>
+              <li><a href="#">Linkedin</a></li>
+              <li><a href="#">Dribbble</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-12">
+            <div class="copyright-text">
+              <p>Group 23 fuzzing project</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- JavaScript Files -->
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/owl.js"></script>
+    <script src="assets/js/slick.js"></script>
+    <script src="assets/js/isotope.js"></script>
+    <script src="assets/js/accordions.js"></script>
+    <!-- Firebase Authentication JavaScript -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="assets/js/firebase.js"></script>
+
+  </body>
+</html>
