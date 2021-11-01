@@ -1,10 +1,4 @@
-<?php
-### Really basic authentication
-## Redirect back to upload.html if the cookie is not set
-if (!isset($_COOKIE["userID"])) {
-    header("Location: upload.html");
-    exit();
-} ?>
+
 <html>
 <head>
   <link href="vendor/bootstrap-v5/css/bootstrap.min.css" rel="stylesheet">
@@ -170,7 +164,7 @@ if (!$conn) {
     exit();
 } else {
     $uid = $_COOKIE["userID"];
-    $path = "$uid/$p3san";
+    $path = "$uid/$P2san";
     $sql = "INSERT INTO files (uID, File, Adr) VALUES ('$uid', '$P3san', '$path')";
     $query = mysqli_query($conn, $sql);
 }
