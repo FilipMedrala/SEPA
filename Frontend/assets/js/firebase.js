@@ -51,6 +51,7 @@ function signUpWithEmailPassword() {
     .then((userCredential) => {
       // Signs in and sets Display Name
       var user = userCredential.user;
+      document.cookie = "userID=" + user.uid;
       user.updateProfile({
         displayName: userDisplayName
       });
@@ -233,7 +234,7 @@ function resetPassword() {
 /** Sign out function **/
 function signOut() {
   firebase.auth().signOut().then(() => {
-    console.log("sign out successful");
+    document.cookie = "userID" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     // Sign-out successful.
   }).catch((error) => {
     // An error happened.
