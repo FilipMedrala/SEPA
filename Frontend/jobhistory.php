@@ -86,9 +86,10 @@
 <thead>
  <tr>
  <th>#</th>
-   <th>Job ID</th>
+   <th>Appname</th>
    <th>Date</th>
    <th>Download</th>
+   <th>Job ID</th>
    <th>Actions</th>
  </tr>
  </thead>
