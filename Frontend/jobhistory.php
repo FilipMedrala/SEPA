@@ -86,9 +86,10 @@
 <thead>
  <tr>
  <th>#</th>
-   <th>Job ID</th>
+   <th>Appname</th>
    <th>Date</th>
    <th>Download</th>
+   <th>Job ID</th>
    <th>Actions</th>
  </tr>
  </thead>
@@ -134,7 +135,7 @@ $i=1;
     	exec("sudo su - root -c 'chown sepadmin $pre2' , , ");
     	exec("sudo su - root -c 'chgrp sepadmin $pre2' , , ");
     	$pre4=$folder2[1];
-        echo '<td><a href="http://localhost/aflfuzzerweb/afl/' . $folder . 'final.zip" Download> Download File </a></td>';
+        echo '<td><a href="http://localhost/aflfuzzerweb/afl/' . $folder . '/final.zip" Download> Download File </a></td>';
 
         $stat1=exec("sudo su - sepadmin -c 'docker ps -aqf name=afl-$pre4' , , ");
                 if (empty($stat1)) {
